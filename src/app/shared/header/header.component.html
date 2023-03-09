@@ -1,0 +1,57 @@
+<header
+  class="bg-white d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom sticky-top">
+  <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+    class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+    <img class="bi me-2 mt-2" width="170" aria-label="Las Que Falta(ba)n" src="assets/logo1.png">
+  </a>
+
+  <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+    <li><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact:true}">Inicio</a></li>
+    <li><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/play" routerLinkActive="active">Jugar</a></li>
+    <li><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/country" routerLinkActive="active">Las mujeres en el
+        mundo</a></li>
+    <li><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/faqs" routerLinkActive="active">FAQs</a></li>
+    <li><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/about" routerLinkActive="active">Sobre nosotros</a>
+    </li>
+  </ul>
+
+  <div class="col-3 text-end me-1">
+    <div class="button-group " *ngIf="!(isLoggedIn$|async) else logOut">
+      <button type="button" class="btn btn-secondary btn-lg me-2" routerLink="/auth/login">Acceder</button>
+      <button type="button" class="btn btn-primary btn-lg" routerLink="/auth/register">Registrarse</button>
+    </div>
+    <ng-template #logOut>
+      <div class="flex-shrink-0 dropdown special-inline">
+        <div class="mr-5 text-center">
+          <a class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="material-symbols-outlined big-icon">admin_panel_settings</i>
+          </a>
+          <ul class="dropdown-menu text-small shadow">
+            <li><a class="dropdown-item" routerLink="/user"><i class="material-symbols-outlined">group</i>  Usuarios</a></li>
+            <li><a class="dropdown-item" routerLink="/question"><i class="material-symbols-outlined">quiz</i>  Preguntas</a></li>
+            <li><a class="dropdown-item" routerLink="/category"><i class="material-symbols-outlined">category</i>  Categorías</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="flex-shrink-0 dropdown special-inline">
+        <div class="mr-5 text-center">
+          <a class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="material-symbols-outlined big-icon" *ngIf="img==''">account_circle</i>
+            <img src="{{img}}" alt="Icono usuario" width="50" height="50" class="rounded-circle" *ngIf="img!=''">
+          </a>
+          <span *ngIf="username!=''">{{username}}</span>
+          <ul class="dropdown-menu text-small shadow">
+            <li><a class="dropdown-item" [routerLink]="['/user/update', username]" routerLinkActive="active">Modificar
+                mis datos</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="special-inline align-middle">
+        <a routerLink="/" (click)="logout()"><i class="material-symbols-outlined big-icon">logout</i></a>
+      </div>
+    </ng-template>
+  </div>
+</header>

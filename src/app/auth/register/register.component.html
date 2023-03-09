@@ -1,0 +1,62 @@
+<app-breadcrumb></app-breadcrumb>
+
+<section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-7">
+          <div class="login-wrap p-4 p-md-5">
+            <div class="icon d-flex align-items-center justify-content-center">
+              <span class="fa fa-user-o"></span>
+            </div>
+            <h3 class="text-center mb-4">Regístrate</h3>
+            <form class="login-form" (ngSubmit)="register(fileInput)" #registerForm="ngForm" autocomplete="off">
+              <div class="form-group">
+                <label class="col-form-label" for="username">Nombre de usuario</label>
+                <input type="text" class="form-control rounded-left" name="username" [ngModel]="initForm.username" minlength="3" maxlength="30" required>
+                <span class="form-text text-danger" *ngIf="notValid('username')">
+                        El nombre de usuario debe tener como mínimo 3 letras y como máximo 30
+                </span>
+              </div>
+              <div class="form-group">
+                <label class="col-form-label" for="password">Contraseña</label>
+                <input type="password" class="form-control rounded-left" name="password" minlength="5" maxlength="60" [ngModel]="initForm.password" required>
+                <span class="form-text text-danger" *ngIf="notValid('password')">
+                  La contraseña debe tener como mínimo 5 letras y como máximo 60
+                </span>
+              </div>
+              <div class="form-group">
+                <label class="col-form-label" for="repassword">Repetir Contraseña</label>
+                <input type="password" class="form-control rounded-left" name="repassword" [ngModel]="repassword" required>
+                <span class="form-text text-danger" *ngIf="checkPassword()">
+                  Las contraseñas no coinciden
+                </span>
+              </div>
+              <div class="form-group">
+                <label class="col-form-label" for="fullname">Nombre y Apellidos</label>
+                <input type="text" class="form-control rounded-left" name="fullname" minlength="4" maxlength="60" [ngModel]="initForm.fullname" required>
+                <span class="form-text text-danger" *ngIf="notValid('fullname')">
+                  El nombre y apellidos deben tener como mínimo 4 letras y como máximo 60
+                </span>
+              </div>
+              <div class="form-group">
+                <label class="col-form-label" for="email">Email</label>
+                <input type="email" class="form-control rounded-left" name="email" [ngModel]="initForm.email" required>
+              </div>
+              <div class="form-group">
+                <label class="col-form-label" for="image">Imagen de perfil</label>
+                <input type="file" #fileInput class="form-control rounded-left" name="image" required>
+              </div>
+              <div class="form-group d-md-flex justify-content-center">
+                <div class="text-center">
+                  <a routerLink="/auth/login" routerLinkActive="active">¿Ya tienes cuenta? Loguéate</a>
+                </div>
+              </div>
+              <div class="form-group">
+                <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary rounded submit p-3 px-5">Registrarse</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
