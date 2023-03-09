@@ -3,6 +3,7 @@ import { Country } from '../interfaces/countries.interface';
 import { CountriesService } from '../services/countries.service';
 import Swal from 'sweetalert2';
 import { Page } from 'src/app/shared/pagination/pagination.interface';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-countrieslist',
@@ -26,10 +27,23 @@ export class CountrieslistComponent implements OnInit {
 
   countries!: Country[];
 
-  constructor(private countriesService: CountriesService) { }
+  someSubscription: any;
+  
+  constructor(private countriesService: CountriesService, private router: Router) { 
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
+    this.someSubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Here is the dashing line comes in the picture.
+        // You need to tell the router that, you didn't visit or load the page previously, so mark the navigated flag to false as below.
+        this.router.navigated = false;
+      }
+    });
+  }
 
   ngOnInit(): void {
-    console.log(this.countries)
+
     this.countriesService.getCountries()
       .subscribe({
         next: (resp) => {
@@ -45,7 +59,6 @@ export class CountrieslistComponent implements OnInit {
 
 
   getCountryPage(page: number) {
-    console.log(page)
     this.countriesService.getCountries(page)
     .subscribe({
       next:(resp) => {
@@ -63,6 +76,12 @@ export class CountrieslistComponent implements OnInit {
         })
       }
     })
+  }
+
+  ngOnDestroy() {
+    if (this.someSubscription) {
+      this.someSubscription.unsubscribe();
+    }
   }
 
 }

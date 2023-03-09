@@ -9,8 +9,6 @@ import { FormsModule } from '@angular/forms';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { PaginationComponent } from './pagination/pagination.component';
 
-
-
 @NgModule({
   declarations: [
     HeaderComponent,
