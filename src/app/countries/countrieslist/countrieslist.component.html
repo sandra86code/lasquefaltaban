@@ -8,7 +8,7 @@
       *ngFor="let country of countries.content">
       <div class="row g-0 mr-5 ml-5">
         <div class="col-lg-4 align-middle">
-          <img src="{{country.img}}" class="img-fluid rounded-start align-middle mt-5" alt="{{country.name}}"
+          <img src="{{country.img}}" class="img-fluid rounded-start align-middle mt-2" alt="{{country.name}}"
             *ngIf="country.img!=null">
           <img src="assets/world.png" class="img-fluid rounded-start align-middle" alt="{{country.name}}"
             *ngIf="country.img==null">
