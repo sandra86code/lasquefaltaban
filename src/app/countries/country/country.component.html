@@ -8,14 +8,14 @@
   <div class="row d-flex justify-content-lg-center text-center">
     <div class="col-md-8">
       <h1 class="display-5 fw-bold mb-5">{{country.name}}</h1>
-      <img src="{{country.img}}" class="float-none img-title mb-5" *ngIf="country.img!=null">
+      <img src="{{country.img}}" class="float-none img-title mb-5 mt-4" *ngIf="country.img!=null">
       <img src="assets/world.png" class="img-fluid rounded-start" alt="{{country.name}}" *ngIf="country.img==null">
-      <div class="d-flex justify-content-center">
-        <div innerHTML={{country.description}} class="fs-5 text-start mb-5 justify-content-center "></div>
+      <div class="d-flex justify-content-center mb-5 mt-5">
+        <div innerHTML={{country.description}} class="fs-5 text-start mb-5 justify-content-center descr"></div>
       </div>
 
 
-      <p class="fs-5 fst-italic">Artículo originalmente publicado en <a href="http://radiojaputa.com">radiojaputa.com</a>
+      <p class="fs-5 fst-italic">Artículo originalmente publicado en <a href="http://radiojaputa.com" target="_blank">radiojaputa.com</a>
       </p>
     <div>
   </div>

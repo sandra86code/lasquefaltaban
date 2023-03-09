@@ -2,7 +2,8 @@ import { Component, Input, OnInit, Output, EventEmitter, SimpleChanges } from '@
 
 @Component({
   selector: 'app-pagination',
-  templateUrl: './pagination.component.html'
+  templateUrl: './pagination.component.html',
+  styles: ['span  { color: white; background-color: #8d448b !important; border-color: #8d448b !important;} button {border-color: #8d448b !important; color: #8d448b !important}']
 })
 export class PaginationComponent implements OnInit {
 

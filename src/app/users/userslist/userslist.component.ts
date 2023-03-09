@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-userslist',
   templateUrl: './userslist.component.html',
-  styles: ['h1 {color: #8d448b; }']
+  styles: ['h1 {color: #8d448b; } ']
 })
 export class UserslistComponent implements OnInit {
 

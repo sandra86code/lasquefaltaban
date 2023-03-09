@@ -6,7 +6,7 @@ import { Country } from '../interfaces/countries.interface';
 @Component({
   selector: 'app-country',
   templateUrl: './country.component.html',
-  styles: ['h1 {color: #5e1f5d; } img {width: 40rem} .material-symbols-outlined {font-size: 3rem; color: #5e1f5d; } .material-symbols-outlined:hover{ cursor: pointer;}'] 
+  styles: ['h1 {color: #5e1f5d; } img {width: 40rem} .material-symbols-outlined {font-size: 3rem; color: #5e1f5d; } .material-symbols-outlined:hover{ cursor: pointer;} p{margin-bottom: 40px; } .descr{text-align: justify!important;}'] 
 })
 export class CountryComponent implements OnInit {
 
