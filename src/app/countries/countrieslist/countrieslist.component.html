@@ -8,9 +8,11 @@
       *ngFor="let country of countries.content">
       <div class="row g-0 mr-5 ml-5">
         <div class="col-lg-4 align-middle">
-        <img src="{{country.img}}" class="img-fluid rounded-start align-middle" alt="{{country.name}}" *ngIf="country.img!=null">
-        <img src="assets/world.png" class="img-fluid rounded-start align-middle" alt="{{country.name}}" *ngIf="country.img==null">
-      </div>
+          <img src="{{country.img}}" class="img-fluid rounded-start align-middle mt-5" alt="{{country.name}}"
+            *ngIf="country.img!=null">
+          <img src="assets/world.png" class="img-fluid rounded-start align-middle" alt="{{country.name}}"
+            *ngIf="country.img==null">
+        </div>
         <div class="col-lg-8 align-middle">
           <div class="card-body ml-5">
             <a [routerLink]="['/country', country.id]" routerLinkActive="active">
@@ -24,7 +26,7 @@
   </div>
 
   <ng-template #loading>
-    <img src="https://www.superiorlawncareusa.com/wp-content/uploads/2020/05/loading-gif-png-5.gif"/>
+    <img src="https://www.superiorlawncareusa.com/wp-content/uploads/2020/05/loading-gif-png-5.gif" />
   </ng-template>
 
   <app-pagination [totalPages]="countries.totalPages" (selectPage)="getCountryPage($event)"></app-pagination>
