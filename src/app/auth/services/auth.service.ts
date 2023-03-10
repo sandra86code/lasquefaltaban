@@ -75,7 +75,6 @@ export class AuthService {
           this.cookieService.set('user-img', user.img);
           this.cookieService.set('user-username', user.username);
           this.cookieService.set('user-role', user.role);
-
         }
       })
   }
