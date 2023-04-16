@@ -11,6 +11,8 @@ import { HomeModule } from './home/home.module';
 import { FaqsComponent } from './page-info/faqs/faqs.component';
 import { AboutusComponent } from './page-info/aboutus/aboutus.component';
 import { RolGuard } from './role-guard.guard';
+import { FormsModule } from '@angular/forms';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { RolGuard } from './role-guard.guard';
     SharedModule,
     HomeModule,
     HttpClientModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    FormsModule,
+    AuthModule
   ],
   providers: [
     RolGuard,{

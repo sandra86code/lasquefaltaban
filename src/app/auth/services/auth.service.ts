@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { of, Observable, switchMap, catchError } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs';
-import { environment } from 'src/environments/environment.prod';
-// import { environment } from 'src/environments/environment';
+// import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import { DecodeToken } from '../interfaces/decode-token.interface';
 import jwt_decode from "jwt-decode";
 import { ActivatedRoute } from '@angular/router';
@@ -29,8 +29,12 @@ export class AuthService {
 
   private admin = new BehaviorSubject<boolean>(false);
 
+  private username: BehaviorSubject<string> = new BehaviorSubject("");
+  private img: BehaviorSubject<string> = new BehaviorSubject("");
+
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+
   };
 
   url: string = `${environment.apiUrl}`;
@@ -45,11 +49,11 @@ export class AuthService {
   }
 
   get userImg() {
-    return this.cookieService.get('user-img');
+    return this.img.asObservable();
   }
 
-  get username() {
-    return this.cookieService.get('user-username');
+  get userUsername() {
+    return this.username.asObservable();
   }
 
   login(username: string, password: string): Observable<boolean> {
@@ -57,6 +61,8 @@ export class AuthService {
       .pipe(switchMap(token => {
         this.cookieService.set('token', token.body.token.replace('Bearer ', ''));
         this.loggedIn.next(true);
+        this.username.next(this.cookieService.get('user-username'));
+        this.img.next(this.cookieService.get('user-img'));
         return of(true);
       }), catchError(error => {
         return of(false);

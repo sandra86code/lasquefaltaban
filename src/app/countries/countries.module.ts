@@ -7,20 +7,32 @@ import { CountrieslistComponent } from './countrieslist/countrieslist.component'
 import { RouterModule } from '@angular/router';
 import { SharedModule } from "../shared/shared.module";
 import { NgxPaginationModule } from 'ngx-pagination';
+import { CountrieslistadminComponent } from './countrieslistadmin/countrieslistadmin.component';
+import { AddcountryComponent } from './addcountry/addcountry.component';
+import { UpdatecountryComponent } from './updatecountry/updatecountry.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DataTablesModule } from 'angular-datatables';
 
 
 
 @NgModule({
     declarations: [
         CountryComponent,
-        CountrieslistComponent
+        CountrieslistComponent,
+        CountrieslistadminComponent,
+        AddcountryComponent,
+        UpdatecountryComponent
     ],
     imports: [
         CommonModule,
         CountriesRoutingModule,
         RouterModule,
         SharedModule,
-        NgxPaginationModule
+        NgxPaginationModule,
+        SharedModule,
+        FormsModule,
+        ReactiveFormsModule,
+        DataTablesModule
     ]
 })
 export class CountriesModule { }

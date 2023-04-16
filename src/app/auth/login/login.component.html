@@ -13,16 +13,21 @@
             <div class="form-group">
               <label class="col-form-label" for="username">Nombre de usuario</label>
               <input type="text" class="form-control rounded-left" [ngModel]="initForm.username"
-              name="username" minlength="3" required>
+              name="username" minlength="3" maxlength="30" required>
               <span class="form-text text-danger" 
                           *ngIf="notValid('username')">
-                        Debe de ser de 3 letras
+                          El nombre de usuario debe tener como mínimo 3 letras y como máximo 30
                     </span>
             </div>
             <div class="form-group">
               <label class="col-form-label" for="password">Contraseña</label>
               <input type="password" class="form-control rounded-left" [ngModel]="initForm.password"
-              name="password" required>
+              name="password" minlength="5" maxlength="60" required>
+              <span class="form-text text-danger" 
+              *ngIf="notValid('password')">
+              La contraseña debe tener como mínimo 5 letras y como máximo 60
+        </span>
+              
             </div>
             <div class="form-group d-md-flex justify-content-center">
               <div class="text-center">
@@ -30,7 +35,7 @@
               </div>
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-primary rounded submit p-3 px-5">Entrar</button>
+              <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary rounded submit p-3 px-5">Entrar</button>
             </div>
           </form>
         </div>

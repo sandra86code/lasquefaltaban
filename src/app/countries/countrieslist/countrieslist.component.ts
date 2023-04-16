@@ -33,19 +33,17 @@ export class CountrieslistComponent implements OnInit {
   ngOnInit(): void {
     this.showingService.show();
 
-    console.log(this.countries.content.length!=0)
     this.countriesService.getCountries()
       .subscribe({
         next: (resp) => {
           this.countries = resp
-          console.log(this.countries.content.length!=0)
-          console.log(this.countries)
         }
       })
   }
 
 
   getCountryPage(page: number) {
+    this.countries = [];
     this.countriesService.getCountries(page)
     .subscribe({
       next:(resp) => {

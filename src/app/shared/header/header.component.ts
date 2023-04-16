@@ -12,16 +12,18 @@ export class HeaderComponent implements OnInit {
 
   id!: string | null;
   isLoggedIn$!: Observable<boolean>;
-  img: string = "";
-  username: string = "";
+  isAdmin$!: Observable<boolean>;
+  img!: Observable<string>;
+  username!: Observable<string>;
 
   constructor(private authService: AuthService,  private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.isLoggedIn$ = this.authService.isLoggedIn;
+    this.isAdmin$ = this.authService.isAdmin;
     this.img = this.authService.userImg;
-    this.username = this.authService.username;
+    this.username = this.authService.userUsername;
   }
 
   logout() {
