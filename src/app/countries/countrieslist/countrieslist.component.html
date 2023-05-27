@@ -15,7 +15,7 @@
         </div>
         <div class="col-lg-8 align-middle">
           <div class="card-body ml-5">
-            <a [routerLink]="['/country', country.id]" routerLinkActive="active">
+            <a [routerLink]="['/country/country', country.id]" routerLinkActive="active">
               <h3 class="card-title">{{country.name}}</h3>
             </a>
             <p class="card-text" innerHTML="{{country.description.substring(0,300)}} [...]"> </p>

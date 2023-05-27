@@ -18,6 +18,8 @@ export class CategorylistComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
+  
+  
   categories!: any;
 
   ngOnInit(): void {
@@ -26,6 +28,8 @@ export class CategorylistComponent implements OnInit {
       pageLength: 10,
       processing: true
     };
+
+      
     this.categories = this.categoryService.getCategories()
     .subscribe({
       next: (data) => {
@@ -46,15 +50,13 @@ export class CategorylistComponent implements OnInit {
     this.categoryService.deleteCategory(id)
     .subscribe({
       next: (data) => {
-        this.categories = data;
         Swal.fire({
           icon: 'success',
           title: 'Categoría borrada',
           confirmButtonColor: '#8d448b'
         })
-        .then((result) => {
-          location.reload();
-        })
+        this.ngOnDestroy();
+        this.ngOnInit();
       },
       error: (error)=>{
         Swal.fire({
@@ -66,8 +68,10 @@ export class CategorylistComponent implements OnInit {
     })
   }
 
+  /**
+   * Método que se desuscribe del evento
+   */
   ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
 

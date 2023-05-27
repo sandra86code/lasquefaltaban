@@ -8359,4 +8359,37 @@
       @media (max-width: 767.98px) {
         .form-group .submit {
           top: 0; } }
-  
+
+/* ESTILO DE DATATABLES */
+
+.dataTables_wrapper .page-item.active .page-link {
+
+  background-color: #5e1f5d;
+  border: 1px solid #5e1f5d;
+}
+
+.page-link {
+  color: #5e1f5d;
+}
+
+.page-link:hover {
+  color: #8d448b;
+}
+
+th {
+  color: #5e1f5d !important;
+}
+
+p-dialog .bgColorChange {
+  background-color: white !important;
+  opacity: 1 !important;
+}
+
+
+/* Asterisco campos requeridos en formularios */
+.requiredField {
+  color: red;
+  font-weight: bold;
+}
+
+

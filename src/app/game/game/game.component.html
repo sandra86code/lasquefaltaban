@@ -1,0 +1,137 @@
+<app-breadcrumb></app-breadcrumb>
+<div class="container d-flex flex-column align-items-center mt-5 mb-5" *ngIf="!(isLoggedIn$|async)">
+    
+  <button type="button" class="btn btn-secondary btn-lg me-2" routerLink="/auth/login">Loguéate</button>
+
+</div>
+
+<div class="container-fluid" *ngIf="(isLoggedIn$|async)">
+    <div class="row">
+
+      <!-- PANTALLA DE SELECCIÓN DE NÚMERO DE PREGUNTAS Y TIEMPO DE RESPUESTA -->
+      <div class="container d-flex flex-column align-items-center mt-5 mb-5"  *ngIf="!gameEnded && !numberQuestions">
+        <form class="login-form" (ngSubmit)="getQuestionsGame()">
+          <div class="form-group text-center">
+            <select class="form-select form-select-lg mb-3" [(ngModel)]="questionsNumber" name="questionsNumber" id="questionsNumber" required>
+              <option [ngValue]="null" disabled>Selecciona el número de preguntas</option>
+              <option [ngValue]="5">5 preguntas</option>
+              <option [ngValue]="10">10 preguntas</option>
+              <option [ngValue]="15">15 preguntas</option>
+              <option [ngValue]="20">20 preguntas</option>
+            </select>
+          </div>
+          <div class="form-group text-center">
+            <select class="form-select form-select-lg mb-3" [(ngModel)]="seconds" name="seconds" id="seconds" required>
+              <option [ngValue]="null" disabled>Selecciona el tiempo de respuesta</option>
+              <option [ngValue]="15">15 segundos</option>
+              <option [ngValue]="30">20 segundos</option>
+              <option [ngValue]="30">30 segundos</option>
+              <option [ngValue]="45">45 segundos</option>
+              <option [ngValue]="60">60 segundos</option>
+            </select>
+          </div>
+          <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary btn-lg me-2" [disabled]="questionsNumber==null || seconds==null">Crear partida</button>
+          </div>
+        </form>
+      </div>  
+
+      <!-- PANTALLA DE PREGUNTAS Y RESPUESTAS -->
+
+      <!-- QUIZ -->
+      <div class="px-4 py-5 my-5" *ngIf="!gameEnded && numberQuestions">
+        <div class="row d-flex justify-content-lg-center text-center">
+          <div class="col-md-8" *ngIf="!currentQuestion">
+            <img src="https://www.superiorlawncareusa.com/wp-content/uploads/2020/05/loading-gif-png-5.gif" />
+          </div>
+         
+          <div class="col-md-8" *ngIf="currentQuestion">
+             <!-- Timer -->
+            <div id="timer" class="d-flex flex-row-reverse bd-highlight" >
+              <div *ngIf="!isPaused">{{ (counter$ | async) }}'</div>
+            </div>
+            <h1 class="mb-5">{{currentQuestion.category.name}}</h1>
+            <table class="table table-bordered table-striped table-hover text-left">
+                <thead>
+                    <tr class="h4">
+                        <th class="align-middle text-center">{{currentQuestion.name}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let answer of currentQuestion.answers; let index = index" class="h5">
+                        <td class="align-middle q-name" (click)="resolveQuestion(answer.correct, index)" *ngIf="selected==-1">{{ answer.answer }}</td>
+                        <td class="align-middle q-name" *ngIf="selected!=-1" 
+                        [ngClass]="{'green': ((selected.answer==answer.answer && answer.correct==true) || (answer.correct==true)) && notAnsweredQuestion==false, 
+                          'red': (selected.answer==answer.answer && answer.correct==false && notAnsweredQuestion==false),
+                          'yellow': (notAnsweredQuestion==true && selected.answer==answer.answer)}">{{ answer.answer }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" (click)="showWomanInformation()" *ngIf="answered===true" class="btn btn-lg btn-info me-2" style="margin-left: 10px;" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+            </svg> Saber más...</button>
+            <button type="button" class="btn btn-secondary btn-lg me-2" (click)="nextQuestion()" *ngIf="answered===true && moreQuestions">Siguiente pregunta  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+            </svg></button>
+            <button type="button" class="btn btn-secondary btn-lg me-2" (click)="addGame()" *ngIf="answered===true && !moreQuestions">Terminar partida</button>
+            <div *ngIf="answered===true && moreQuestions && isPaused && !showColor" class="mt-5">
+              <button type="button" (click)="showColorCode()" class="btn btn-lg btn-info me-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                  <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                </svg> Código de colores
+              </button>
+            </div>
+            <!-- CÓDIGOS DE COLORES DE RESPUESTAS -->
+            <div id="table" class="d-flex flex-row-reverse bd-highlight" *ngIf="isPaused && showColor" >
+              <table class="table">
+                <tr>
+                  <td class="table-td"><div class="color-box green"></div></td>
+                  <td class="table-td-text">Respuesta correcta</td>
+                </tr>
+                <tr>
+                  <td class="table-td"><div class="color-box red"></div></td>
+                  <td class="table-td-text">Respuesta incorrecta</td>
+                </tr>
+                <tr>
+                  <td class="table-td"><div class="color-box yellow"></div></td>
+                  <td class="table-td-text">No ha habido respuesta. Opción correcta</td>
+                </tr>
+              </table>
+            </div>
+
+            
+          </div>
+        </div> 
+      </div>
+    </div>
+  </div>
+
+
+<!-- MODAL DE INFORMACIÓN DE LAS MUJERES -->
+<div *ngIf="showWomanInfo">
+  <p-dialog [modal]="true" [(visible)]="showWomanInfo" [closable]="true" [draggable]="false"
+  [style]="{'width':'900px', 'max-height': '450px'}" styleClass="bgColorChange">
+    <div class="col-12">
+      <div class="row align-items-center">
+        <h1>{{currentQuestion.woman.name}}</h1>
+      </div>
+      <div class="row d-flex justify-content-center mb-5 mt-5">
+              <div class="f4 text-start mb-5 justify-content-center descr" [innerHTML]="currentQuestion.woman.description"></div>
+          </div>
+        <div class="text-center">
+          <button type="button" class="btn btn-danger m-2 botonAñadir" (click)="closeWomanInfo()">Cerrar</button>
+      </div>
+    </div>
+  </p-dialog>
+</div>
+
+<!-- PANTALLA DE PUNTOS -->
+<div class="container d-flex flex-column align-items-center mt-5 mb-5" *ngIf="gameEnded">
+  <div class="col-md-8 text-center">
+    <h2>El total de puntos ganados es: {{score}} puntos</h2>
+    <button type="button" class="btn btn-secondary btn-lg me-2" (click)="reload()">Volver a Jugar</button>
+  </div>
+</div>
+

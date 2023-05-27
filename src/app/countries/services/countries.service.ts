@@ -31,9 +31,18 @@ export class CountriesService {
     return this.http.get<any>(`${this.url}/${id}`);
   }
 
-  addCountry(name:string, description:string) {
-    return this.http.post(`${this.url}`, {"name": name, "description": description, "img": null}, this.httpOptions);
+  addCountry(name:string, description:string, countryImg: File) {
+    const form: FormData = new FormData();
+    form.append('countryImg', countryImg);
+    const countryBlob = new Blob([JSON.stringify({"name": name, "description": description})], { type: 'application/json' });
+    form.append('country', countryBlob);
+
+    const headers = new HttpHeaders();
+    headers.append('enctype', 'multipart/form-data');
+
+    return this.http.post(`${this.url}`, form, { headers: headers });
   }
+
 
   deleteCountry(id: number): Observable<boolean> {
     return this.http.delete<any>(`${this.url}/${id}`, this.httpOptions)
@@ -45,13 +54,15 @@ export class CountriesService {
       )
   }
 
-  editCountry(id: number, name: string, description: string): Observable<boolean> {
-    return this.http.put<any>(`${this.url}/${id}`, {"name": name, "description": description, "img": null}, this.httpOptions)
-    .pipe( switchMap(resp => {
-      return of(true);
-    }),catchError(error => {
-        return of(false);
-    })
-    )
+  editCountry(id: number, name: string, description: string, countryImg: File) {
+    const form: FormData = new FormData();
+    form.append('countryImg', countryImg);
+    const countryBlob = new Blob([JSON.stringify({"name": name, "description": description})], { type: 'application/json' });
+    form.append('updatedCountry', countryBlob);
+
+    const headers = new HttpHeaders();
+    headers.append('enctype', 'multipart/form-data');
+
+    return this.http.put<any>(`${this.url}/${id}`, form, { headers: headers });
   }
 }

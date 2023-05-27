@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'app-countrieslistadmin',
   templateUrl: './countrieslistadmin.component.html',
-  styles: ['h1 {color: #8d448b; } .btn-success {font-size: 20px; font-weight: bold;}']
+  styles: ['h1 {color: #8d448b; } .btn-success {font-size: 20px; font-weight: bold;} .q-name { width: 300px;} .q-actions { width: 250px;}']
 })
 export class CountrieslistadminComponent implements OnInit {
 
@@ -52,9 +52,8 @@ export class CountrieslistadminComponent implements OnInit {
           title: 'País borrado',
           confirmButtonColor: '#8d448b'
         })
-        .then((result) => {
-          location.reload();
-        })
+        this.ngOnDestroy();
+        this.ngOnInit();
       },
       error: (_error: any)=>{
         Swal.fire({
@@ -66,8 +65,10 @@ export class CountrieslistadminComponent implements OnInit {
     })
   }
 
+  /**
+   * Método que se desuscribe del evento
+   */
   ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
 }

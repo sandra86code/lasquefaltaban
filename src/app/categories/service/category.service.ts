@@ -4,6 +4,7 @@ import { of, Observable, switchMap, catchError } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 // import { environment } from 'src/environments/environment';
 import { CategoriesResponse } from '../interface/categories-response.interface';
+import { Category } from 'src/app/game/interface/questions-game.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,8 @@ constructor(private http: HttpClient) { }
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  getCategories(): Observable<CategoriesResponse> {
-    return this.http.get<CategoriesResponse>(this.url);
+  getCategories(): Observable<any> {
+    return this.http.get<any>(this.url);
   }
 
   getCategoryById(id: number): Observable<CategoriesResponse> {

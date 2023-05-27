@@ -12,6 +12,7 @@ import { AddcountryComponent } from './addcountry/addcountry.component';
 import { UpdatecountryComponent } from './updatecountry/updatecountry.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
+import { EditorModule } from 'primeng/editor';
 
 
 
@@ -32,7 +33,8 @@ import { DataTablesModule } from 'angular-datatables';
         SharedModule,
         FormsModule,
         ReactiveFormsModule,
-        DataTablesModule
+        DataTablesModule,
+        EditorModule
     ]
 })
 export class CountriesModule { }

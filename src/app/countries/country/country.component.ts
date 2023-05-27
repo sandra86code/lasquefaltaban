@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CountriesService } from '../services/countries.service';
 import { Country } from '../interfaces/countries.interface';
@@ -15,8 +15,7 @@ export class CountryComponent implements OnInit {
 
   countryName: String = "a";
   
-  constructor(private activatedRoute: ActivatedRoute, private countriesService: CountriesService, 
-    private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, private countriesService: CountriesService) { }
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');

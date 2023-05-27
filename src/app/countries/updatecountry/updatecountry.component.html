@@ -11,13 +11,13 @@
           <section class="ftco-section">
             <div class="container">
               <div class="row justify-content-center">
-                <div class="col-md-6 col-lg-7">
+                <div class="col-md-6 col-lg-10">
                   <div class="login-wrap p-4 p-md-5">
                     <div class="icon d-flex align-items-center justify-content-center">
                       <i class="material-symbols-outlined">flag</i>
                     </div>
                     <h3 class="text-center mb-4">Editar país</h3>
-                    <form class="login-form" (ngSubmit)="editCountry()" [formGroup]="myForm" autocomplete="off">
+                    <form class="login-form" (ngSubmit)="editCountry(fileInput)" [formGroup]="myForm" autocomplete="off">
                       <div class="form-group">
                         <label class="col-form-label" for="name">Nombre del país</label>
                         <input type="text" class="form-control rounded-left" name="name" formControlName="name">
@@ -26,11 +26,18 @@
                         </span>
                       </div>
                       <div class="form-group">
-                        <label class="col-form-label" for="woman">Descripcion del país</label>
-                        <textarea class="form-control rounded-left" name="description" formControlName="description" rows="3"></textarea>
+                        <label class="col-form-label" for="description">Descripcion del país</label>
+                        <p-editor formControlName="description" [style]="{'height':'520px'}" placeholder="Introduzca la descripción" id="description" name="description"></p-editor>
                         <span class="form-text text-danger" *ngIf="notValid('description')">
                           La descripción del país debe tener como mínimo 100 letras
                         </span>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-form-label" for="image">Bandera del país</label>
+
+                        <img src="{{country.img}}" width="30%" *ngIf="country.img" class="d-block mt-3 mb-3">
+
+                        <input type="file" #fileInput class="form-control rounded-left" name="image">
                       </div>
                       <div class="form-group">
                         <button type="submit" [disabled]="myForm.invalid" class="btn btn-primary rounded submit p-3 px-5">Enviar</button>

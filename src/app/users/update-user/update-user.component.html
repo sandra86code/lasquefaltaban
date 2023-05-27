@@ -11,7 +11,7 @@
             </div>
             <h3 class="text-center mb-4">Editar datos de usuario</h3>
             
-              <form class="login-form" (ngSubmit)="editUser()" #updatedForm="ngForm" autocomplete="off">
+              <form class="login-form" (ngSubmit)="editUser(fileInput)" #updatedForm="ngForm" autocomplete="off">
                 <div class="form-group">
                   <label class="col-form-label" for="username">Nombre de usuario</label>
                   <input type="text" class="form-control rounded-left" name="username" [ngModel]="initForm.username" minlength="3" maxlength="30" readonly>
@@ -21,7 +21,21 @@
                 </div>
                 <div class="form-group">
                   <label class="col-form-label" for="password">Contraseña</label>
-                  <input type="password" class="form-control rounded-left" name="password" minlength="5" maxlength="60" [ngModel]="initForm.password">
+                    <i class="material-symbols-outlined" data-bs-toggle="tooltip" (click)="changePassword()" *ngIf="!changedPassword">add</i>
+                    <i class="material-symbols-outlined" data-bs-toggle="tooltip" (click)="changePassword()" *ngIf="changedPassword">remove</i>  
+                  <div *ngIf="changedPassword">
+                    <input type="password" class="form-control rounded-left" name="password" minlength="5" maxlength="60" [ngModel]="initForm.password">
+                    <span class="form-text text-danger" *ngIf="notValid('password')">
+                      La contraseña debe tener como mínimo 5 letras y como máximo 60
+                    </span>
+                  </div>
+                </div>
+                <div class="form-group" *ngIf="changedPassword">
+                  <label class="col-form-label" for="repassword">Repetir Contraseña</label>
+                  <input type="password" class="form-control rounded-left" name="repassword" [ngModel]="repassword">
+                  <span class="form-text text-danger" *ngIf="checkPassword()">
+                    Las contraseñas no coinciden
+                  </span>
                 </div>
                 <div class="form-group">
                   <label class="col-form-label" for="fullname">Nombre y Apellidos</label>
@@ -33,6 +47,11 @@
                 <div class="form-group">
                   <label class="col-form-label" for="email">Email</label>
                   <input type="email" class="form-control rounded-left" name="email" [ngModel]="initForm.email" value="{{user.email}}" required>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label" for="image">Imagen de perfil</label>
+                  <img src="{{user.img}}" width="30%" *ngIf="user.img" class="d-block mt-3 mb-3">
+                  <input type="file" #fileInput class="form-control rounded-left" name="image">
                 </div>
                 <div class="form-group">
                   <button type="submit" [disabled]="updatedForm.invalid" class="btn btn-primary rounded submit p-3 px-5">Editar</button>

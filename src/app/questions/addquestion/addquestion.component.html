@@ -17,23 +17,77 @@
                   <i class="material-symbols-outlined">quiz</i>
                 </div>
                 <h3 class="text-center mb-4">Añadir pregunta</h3>
-                <!-- <form class="login-form" (ngSubmit)="addQuestion()" [formGroup]="myForm" autocomplete="off">
+                <form class="login-form" (ngSubmit)="addQuestion()" #addQuestionForm="ngForm" autocomplete="off">
                   <div class="form-group">
-                    <label class="col-form-label" for="name">Enunciado de la pregunta</label>
-                    <input type="text" class="form-control rounded-left" name="name" formControlName="name" required>
+                    <label class="col-form-label" for="name">Enunciado de la pregunta <span class="requiredField" >*</span></label>
+                    <textarea class="form-control rounded-left" name="name" [(ngModel)]="initForm.name" minlength="5" 
+                    maxlength="300" rows="5" required></textarea>
                     <span class="form-text text-danger" *ngIf="notValid('name')">
-                      El nombre de la pregunta debe tener como mínimo 2 letras y como máximo 50
-                    </span>
+                    La pregunta debe tener como mínimo 5 caracteres y como máximo 300</span>
                   </div>
                   <div class="form-group">
-                    <label class="col-form-label" for="woman">Mujer</label>
-                    <input type="text" class="form-control rounded-left" name="woman" formControlName="woman.name" required>
+                    <label class="col-form-label" for="answer1">Respuesta 1 <span class="requiredField" >*</span></label>
+                    <input class="form-control rounded-left" type="text" name="answer1" [(ngModel)]="initForm.answer1" minlength="2" maxlength="200" required>
+                    <span class="form-text text-danger" *ngIf="notValid('answer1')">
+                      La respuesta debe tener como mínimo 2 caracteres y como máximo 200</span>
                   </div>
                   <div class="form-group">
-                    <button type="submit" [disabled]="myForm.invalid"
+                    <label class="col-form-label" for="answer2">Respuesta 2 <span class="requiredField" >*</span></label>
+                    <input class="form-control rounded-left" type="text" name="answer2" [(ngModel)]="initForm.answer2" minlength="2" maxlength="200" required>
+                    <span class="form-text text-danger" *ngIf="notValid('answer2')">
+                      La respuesta debe tener como mínimo 2 caracteres y como máximo 200</span>
+                  </div>        
+                  <div class="form-group">
+                    <label class="col-form-label" for="answer3">Respuesta 3 <span class="requiredField" >*</span></label>
+                    <input class="form-control rounded-left" type="text" name="answer3" [(ngModel)]="initForm.answer3" minlength="2" maxlength="200" required>
+                    <span class="form-text text-danger" *ngIf="notValid('answer3')">
+                      La respuesta debe tener como mínimo 2 caracteres y como máximo 200</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-form-label" for="answer4">Respuesta 4 <span class="requiredField" >*</span></label>
+                    <input class="form-control rounded-left" type="text" name="answer4" [(ngModel)]="initForm.answer4" minlength="2" maxlength="200" required>
+                    <span class="form-text text-danger" *ngIf="notValid('answer4')">
+                      La respuesta debe tener como mínimo 2 caracteres y como máximo 200</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-form-label" for="correct">Respuesta correcta <span class="requiredField" >*</span></label>
+                    <select class="form-select mb-3 col-8" name="correct" [(ngModel)]="initForm.correct" required>
+                      <option [value]="null" disabled>Elige el número de la respuesta correcta</option>
+                      <option [value]="1">1</option>
+                      <option [value]="2">2</option>
+                      <option [value]="3">3</option>
+                      <option [value]="4">4</option>
+                    </select>
+                    <span class="form-text text-danger" *ngIf="notValid('correct')">
+                      Elige un número de la lista</span>
+                  </div>          
+                  <div class="form-group">
+                    <label class="col-form-label" for="woman">Mujer <span class="requiredField" >*</span></label>
+                    <select class="form-select mb-3 col-6" name="woman" [(ngModel)]="selectedWoman" required>
+                      <option [value]="null" disabled>Elige una mujer</option>
+                      <option *ngFor="let woman of women" [value]="woman.id">{{woman.name}}</option>
+                    </select>
+                    <span class="form-text text-danger" *ngIf="notValid('woman')">
+                      Elige una mujer de la lista</span>
+                  </div>
+                
+                  <div class="form-group">
+                    <label class="col-form-label" for="category">Categoría <span class="requiredField" >*</span></label>
+                    <select class="form-select mb-3 col-6" name="category" [(ngModel)]="selectedCategory" required>
+                      <option [value]="null" disabled>Elige una categoría</option>
+                      <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+                    </select>
+                    <span class="form-text text-danger" *ngIf="notValid('woman')">
+                      Elige una categoría de la lista</span>
+                  </div>
+                  <div class="form-group">
+                    <span class="requiredField" >*</span> Campos obligatorios
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" [disabled]="addQuestionForm.invalid"
                       class="btn btn-primary rounded submit p-3 px-5">Enviar</button>
                   </div> 
-                </form>-->
+                </form>
               </div>
             </div>
           </div>

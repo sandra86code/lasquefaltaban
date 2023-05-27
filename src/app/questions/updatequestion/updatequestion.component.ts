@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionService } from '../service/question.service';
 import Swal from 'sweetalert2';
+import { CategoryService } from 'src/app/categories/service/category.service';
+import { WomanService } from 'src/app/women/service/woman.service';
 
 @Component({
   selector: 'app-updatequestion',
@@ -11,18 +13,29 @@ import Swal from 'sweetalert2';
 })
 export class UpdatequestionComponent implements OnInit {
 
-  constructor(private questionService: QuestionService, private route: Router, private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute) { }
+  constructor(private questionService: QuestionService, private route: Router, 
+    private activatedRoute: ActivatedRoute, private categoryService: CategoryService, private womanService: WomanService) { }
 
-    name: string = ""
+  women!: any;
+  categories!: any;
+
+  selectedWoman: any = null;
+  selectedCategory: any = null;
+
+  @ViewChild('editQuestionForm') editQuestionForm!: NgForm;
 
     id: any;
   
     question!: any;
 
-    myForm: FormGroup = this.fb.group({
-      name: [this.name, [Validators.required, Validators.minLength(2), Validators.maxLength(50)]]
-    })
+    initForm = {
+      name: "",
+      answer1: "",
+      answer2: "",
+      answer3: "",
+      answer4: "",
+      correct: -1
+    }
   
     ngOnInit(): void {
       this.id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -30,45 +43,134 @@ export class UpdatequestionComponent implements OnInit {
         .subscribe({
           next: res => {
             this.question = res;
-            this.myForm.setValue({
-              name: this.question.name,
-            })
+            this.initForm.name = this.question.name;
+            this.initForm.answer1 = this.question.answers[0].answer;
+            this.initForm.answer2 = this.question.answers[1].answer;
+            this.initForm.answer3 = this.question.answers[2].answer;
+            this.initForm.answer4 = this.question.answers[3].answer;
+            this.selectedWoman = this.question.woman.id;
+            this.selectedCategory = this.question.category.id;
+            let correctAnswer = this.question.answers.filter((x: { correct: boolean; }) => x.correct == true)
+            this.initForm.correct = this.selectCorrectAnswer(correctAnswer[0].answer);
+          }
+        })
+        this.categoryService.getCategories()
+        .subscribe({
+          next: (resp) => {
+           this.categories = resp
+          }
+        })
+        this.womanService.getWomen()
+        .subscribe({
+          next: (resp) => {
+           this.women = resp
           }
         })
     }
   
+    selectCorrectAnswer(answer: string): number {
+      let number = 0;
+      if(answer === this.initForm.answer1) {
+        number = 1;
+      }else if(answer === this.initForm.answer2) {
+        number = 2;
+      }else if(answer === this.initForm.answer3) {
+        number = 3;
+      }else {
+        number = 4;
+      }
+      return number;
+
+    }
+
     notValid(field: string): boolean {
-      return this.myForm?.controls[field]?.invalid && this.myForm?.controls[field]?.touched
+      return this.editQuestionForm?.controls[field]?.invalid &&
+        this.editQuestionForm?.controls[field]?.touched
     }
 
   editQuestion() {
-    if (this.myForm.invalid) {
-      this.myForm.markAllAsTouched()
-    }
-    else {
-      this.questionService.editQuestion(this.myForm)
-        .subscribe({
-          next: (resp) => {
-            Swal.fire({
-              icon: 'success',
-              title: 'Categoría editada',
-              confirmButtonColor: '#8d448b'
-            })
-            this.route.navigateByUrl('/category')
-          },
-          error: (error) => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Categoría no editada',
-              confirmButtonColor: '#8d448b'
-            })
-            this.route.navigateByUrl('/category')
-          }
+    const answers = this.createAnswers();
+    let woman = this.women.filter((x: { id: any; }) => x.id == this.selectedWoman)
+    let category = this.categories.filter((x: { id: any; }) => x.id == this.selectedCategory)
+    const body = {
+      name: this.editQuestionForm.controls["name"].value,
+      answers: answers.answers,
+      woman: {
+        "id": woman[0].id,
+        "name": woman[0].name,
+        "description": woman[0].description
+      },
+      category: {
+        "id": category[0].id,
+        "name": category[0].name
+      }
+    };
+    this.questionService.editQuestion(this.question.id, body)
+    .subscribe({
+      next: (resp) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Pregunta editada',
+          confirmButtonColor: '#8d448b'
         })
-    }
+        this.route.navigateByUrl('/question')
+      },
+      error: (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Pregunta no editada',
+          confirmButtonColor: '#8d448b'
+        })
+        this.route.navigateByUrl('/question')
+      }
+    })
   }
 
   goBack() {
     window.history.back();
+  }
+
+  createAnswers() {
+    let correct1 = false;
+    let correct2 = false;
+    let correct3 = false;
+    let correct4 = false;
+    switch (this.editQuestionForm.controls["correct"].value) {
+      case "1":
+        correct1 = true;
+        break;
+      case "2":
+        correct2 = true;
+        break;
+      case "3":
+        correct3 = true;
+        break;
+      case "4":
+        correct4 = true;
+        break;
+      default:
+        break;
+    }
+    const answers = {
+      "answers": [
+        {
+          "answer": this.editQuestionForm.controls["answer1"].value,
+          "correct": correct1
+        },
+        {
+          "answer": this.editQuestionForm.controls["answer2"].value,
+          "correct": correct2        
+        },
+        {
+          "answer": this.editQuestionForm.controls["answer3"].value,
+          "correct": correct3
+        },
+        {
+          "answer": this.editQuestionForm.controls["answer4"].value,
+          "correct": correct4
+        }
+      ]
+    };
+    return answers;
   }
 }

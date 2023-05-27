@@ -1,18 +1,17 @@
 <header
-  class="bg-white d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom sticky-top">
-  <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-    class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+  class="col-lg bg-white d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom sticky-top">
+  <a routerLink="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
     <img class="bi me-2 mt-2" width="170" aria-label="Las Que Falta(ba)n" src="assets/logo1.png">
   </a>
 
   <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-    <li><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/" routerLinkActive="active"
+    <li><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/" routerLinkActive="activeMenu"
         [routerLinkActiveOptions]="{exact:true}">Inicio</a></li>
-    <li><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/play" routerLinkActive="active">Jugar</a></li>
-    <li><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/country" routerLinkActive="active">Las mujeres en el
+    <li><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/game" routerLinkActive="activeMenu">Jugar</a></li>
+    <li><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/ranking" routerLinkActive="activeMenu">Ranking</a></li>
+    <li><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/country" routerLinkActive="activeMenu" [routerLinkActiveOptions]="{exact: true}">Las mujeres en el
         mundo</a></li>
-    <li><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/faqs" routerLinkActive="active">FAQs</a></li>
-    <li><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/about" routerLinkActive="active">Sobre nosotros</a>
+    <li><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/about" routerLinkActive="activeMenu">Sobre mí</a>
     </li>
   </ul>
 
@@ -22,18 +21,19 @@
       <button type="button" class="btn btn-primary btn-lg" routerLink="/auth/register">Registrarse</button>
     </div>
     <ng-template #logOut>
-      <div class="flex-shrink-0 dropdown special-inline" *ngIf="!(isAdmin$|async)">
+      <div class="flex-shrink-0 dropdown special-inline" *ngIf="(isAdmin$|async) || isAdmin=='ADMIN'">
         <div class="mr-5 text-center">
           <a class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownMenuButton1" 
             data-bs-toggle="dropdown" aria-expanded="false">
             <i class="material-symbols-outlined big-icon">admin_panel_settings</i>
           </a>
           <ul class="dropdown-menu text-small shadow">
-            <li><a class="dropdown-item" routerLink="/user"><i class="material-symbols-outlined">group</i>  Usuarios</a></li>
-            <li><a class="dropdown-item" routerLink="/question"><i class="material-symbols-outlined">quiz</i>  Preguntas</a></li>
-            <li><a class="dropdown-item" routerLink="/category"><i class="material-symbols-outlined">category</i>  Categorías</a></li>
-            <li><a class="dropdown-item" routerLink="/women"><i class="material-symbols-outlined">female</i>  Mujeres</a></li>
-            <li><a class="dropdown-item" routerLink="/countries"><i class="material-symbols-outlined">flag</i>  Países</a></li>
+            <li><a class="dropdown-item" routerLink="/user" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><i class="material-symbols-outlined">group</i>  Usuari@s</a></li>
+            <li><a class="dropdown-item" routerLink="/game/list" routerLinkActive="active"><i class="material-symbols-outlined">sports_score</i>  Partidas</a></li>
+            <li><a class="dropdown-item" routerLink="/question" routerLinkActive="active"><i class="material-symbols-outlined">quiz</i>  Preguntas</a></li>
+            <li><a class="dropdown-item" routerLink="/category" routerLinkActive="active"><i class="material-symbols-outlined">category</i>  Categorías</a></li>
+            <li><a class="dropdown-item" routerLink="/woman" routerLinkActive="active"><i class="material-symbols-outlined">female</i>  Mujeres</a></li>
+            <li><a class="dropdown-item" routerLink="/country/list" routerLinkActive="active"><i class="material-symbols-outlined">flag</i>  Países</a></li>
           </ul>
         </div>
       </div>
@@ -41,13 +41,17 @@
         <div class="mr-5 text-center">
           <a class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownMenuButton1"
             data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="material-symbols-outlined big-icon" *ngIf="img | async">account_circle</i>
-            <img src="{{img}}" alt="Icono usuario" width="50" height="50" class="rounded-circle" *ngIf="img | async">
+            <i class="material-symbols-outlined big-icon" *ngIf="!(img | async) && imgCookie=='null'">account_circle</i>
+            <img src="{{img | async}}" alt="Icono usuario" width="50" height="50" class="rounded-circle" *ngIf="(img | async) && imgCookie!='null'">
+            <img src="{{imgCookie}}" alt="Icono usuario" width="50" height="50" class="rounded-circle" *ngIf="!(img | async) && imgCookie!='null'">
           </a>
-          <span *ngIf="username | async">{{username}}</span>
+          <span *ngIf="username | async">{{username | async}}</span>
+          <span *ngIf="!(username | async)">{{usernameCookie}}</span>
           <ul class="dropdown-menu text-small shadow">
-            <li><a class="dropdown-item" [routerLink]="['/user/update', username]" routerLinkActive="active">Modificar
+            <li *ngIf="(username | async)"><a class="dropdown-item" [routerLink]="['/user/update', username | async]" routerLinkActive="active">Modificar
                 mis datos</a></li>
+            <li *ngIf="!(username | async)"><a class="dropdown-item" [routerLink]="['/user/update', usernameCookie]" routerLinkActive="active">Modificar
+                  mis datos</a></li>
           </ul>
         </div>
       </div>

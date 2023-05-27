@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://lasquefaltabanback-production.up.railway.app'
+  apiUrl: 'http://localhost:8282'
 
 };

@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-questionlist',
   templateUrl: './questionlist.component.html',
-  styles: ['h1 {color: #8d448b; } .q-name { width: 500px;}']
+  styles: ['h1 {color: #8d448b; } .q-name { width: 500px;} .btn-success {font-size: 20px; font-weight: bold;} ']
 })
 export class QuestionlistComponent implements OnInit {
 
@@ -42,15 +42,13 @@ export class QuestionlistComponent implements OnInit {
     this.questionService.deleteQuestion(id)
     .subscribe({
       next: (data) => {
-        window.location.reload()
         Swal.fire({
           icon: 'success',
           title: 'Pregunta borrada',
           confirmButtonColor: '#8d448b'
         })
-        .then((result) => {
-          location.reload();
-        })
+        this.ngOnDestroy();
+        this.ngOnInit();
       },
       error: (error)=>{
         Swal.fire({
@@ -62,8 +60,10 @@ export class QuestionlistComponent implements OnInit {
     })
   }
 
+  /**
+   * Método que se desuscribe del evento
+   */
   ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
 

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { of, Observable, switchMap, catchError } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { WomenResponse } from '../interface/women-response.interface';
+import { Woman } from 'src/app/game/interface/questions-game.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ constructor(private http: HttpClient) { }
   }
 
   getWomanById(id: number): Observable<WomenResponse> {
-    return this.http.get<WomenResponse>(`${this.url}/${id}`, this.httpOptions)
+    return this.http.get<Woman>(`${this.url}/${id}`, this.httpOptions)
   }
 
 

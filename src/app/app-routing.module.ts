@@ -2,13 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { VerifyComponent } from './auth/verify/verify.component';
 import { HomeComponent } from './home/home/home.component';
 import { AboutusComponent } from './page-info/aboutus/aboutus.component';
-import { FaqsComponent } from './page-info/faqs/faqs.component';
-import { PlayComponent } from './play/play/play.component';
 import { RolGuard } from './role-guard.guard';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { RankingComponent } from './ranking/ranking/ranking.component';
+import { GameComponent } from './game/game/game.component';
+import { VerifyComponent } from './verify/verify.component';
+import { LoggedInGuard } from './loggedin-guard.guard';
 
 const routes: Routes = [
   {
@@ -21,7 +22,7 @@ const routes: Routes = [
     path: 'auth/register', component: RegisterComponent,
   },
   {
-    path: 'auth/verify', component: VerifyComponent,
+    path: 'verify', component: VerifyComponent,
   },
   {
     path: 'user',
@@ -34,26 +35,27 @@ const routes: Routes = [
   {
     path: 'question',
     loadChildren: () => import('./questions/questions.module').then(m => m.QuestionsModule),
-    canActivate: [RolGuard]
+    canActivate: [LoggedInGuard, RolGuard]
   },
   {
     path: 'category',
     loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule),
-    canActivate: [RolGuard]
+    canActivate: [LoggedInGuard, RolGuard]
   },
   {
     path: 'woman',
     loadChildren: () => import('./women/women.module').then(m => m.WomenModule),
-    canActivate: [RolGuard]
+    canActivate: [LoggedInGuard, RolGuard]
   },
   {
-    path: 'play', component: PlayComponent
+    path: 'game',
+    loadChildren: () => import('./game/game.module').then(m => m.GameModule)
   },
   {
     path: 'about', component: AboutusComponent
   },
   {
-    path: 'faqs', component: FaqsComponent
+    path: 'ranking', component: RankingComponent
   },
   { path: '**', component: NotFoundComponent }
 ];

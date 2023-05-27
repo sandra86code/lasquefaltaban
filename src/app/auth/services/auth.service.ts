@@ -30,6 +30,7 @@ export class AuthService {
   private admin = new BehaviorSubject<boolean>(false);
 
   private username: BehaviorSubject<string> = new BehaviorSubject("");
+
   private img: BehaviorSubject<string> = new BehaviorSubject("");
 
   httpOptions = {
@@ -61,8 +62,6 @@ export class AuthService {
       .pipe(switchMap(token => {
         this.cookieService.set('token', token.body.token.replace('Bearer ', ''));
         this.loggedIn.next(true);
-        this.username.next(this.cookieService.get('user-username'));
-        this.img.next(this.cookieService.get('user-img'));
         return of(true);
       }), catchError(error => {
         return of(false);
@@ -79,8 +78,15 @@ export class AuthService {
       .subscribe({
         next: (user) => {
           this.cookieService.set('user-img', user.img);
+          this.img.next(this.cookieService.get('user-img'));
           this.cookieService.set('user-username', user.username);
+          this.username.next(this.cookieService.get('user-username'));
           this.cookieService.set('user-role', user.role);
+          if(user.role === 'ADMIN') {
+            this.admin.next(true);
+          }else {
+            this.admin.next(false);
+          }
         }
       })
   }
@@ -90,14 +96,18 @@ export class AuthService {
     form.append('userlogo', userlogo);
     const userBlob = new Blob([JSON.stringify(user)], { type: 'application/json' });
     form.append('user', userBlob);
-    return this.http.post<any>(`${this.url}/user`, form);
+
+    const headers = new HttpHeaders();
+    headers.append('enctype', 'multipart/form-data');
+
+    return this.http.post<any>(`${this.url}/user`, form, { headers: headers });
   }
 
   isAdminGuard() {
     let token = this.cookieService.get('token')
     if (token) {
       let role = this.decodeJwt(token).role
-      if (role == 'ADMIN_ROLE') {
+      if (role == 'ADMIN') {
         return true
       }
     }

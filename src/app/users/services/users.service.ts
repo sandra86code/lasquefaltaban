@@ -38,16 +38,13 @@ export class UsersService {
       )
   }
 
-  editUser(user: any): Observable<boolean> {
+  editUser(user: any, userlogo: File) {
     const form: FormData = new FormData();
+    form.append('userlogo', userlogo);
     const userBlob = new Blob([JSON.stringify(user)], { type: 'application/json' });
     form.append('updatedUser', userBlob);
-    return this.http.put<any>(`${this.url}/${user.username}`, form)
-    .pipe( switchMap(resp => {
-      return of(true);
-    }),catchError(error => {
-        return of(false);
-    })
-    )
+    const headers = new HttpHeaders();
+    headers.append('enctype', 'multipart/form-data');
+    return this.http.put<any>(`${this.url}/${user.username}`, form, { headers: headers })
   }
 }

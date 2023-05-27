@@ -6,14 +6,12 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
-import { VerifyComponent } from './verify/verify.component';
 
 
 @NgModule({
   declarations: [
     RegisterComponent,
-    LoginComponent,
-    VerifyComponent
+    LoginComponent
   ],
   imports: [
     CommonModule,
@@ -23,8 +21,7 @@ import { VerifyComponent } from './verify/verify.component';
   ],
   exports: [
     RegisterComponent,
-    LoginComponent,
-    VerifyComponent
+    LoginComponent
   ]
 })
 export class AuthModule { }

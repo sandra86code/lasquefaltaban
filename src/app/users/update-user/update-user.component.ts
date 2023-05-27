@@ -5,6 +5,7 @@ import { UsersService } from '../services/users.service';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../auth/services/auth.service';
 import { UsersResponse } from '../interfaces/users.interface';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-update-user',
@@ -14,6 +15,9 @@ export class UpdateUserComponent implements OnInit {
 
   id: any;
   user!: UsersResponse;
+  repassword: string = "";
+
+  changedPassword: boolean = false;
 
   @ViewChild('updatedForm') updatedForm!: NgForm;
 
@@ -24,7 +28,6 @@ export class UpdateUserComponent implements OnInit {
     email: "",
   }
 
-  repassword: string = "";
 
   json: any = {
     username: '',
@@ -36,7 +39,7 @@ export class UpdateUserComponent implements OnInit {
   
   
   constructor(private activatedRoute: ActivatedRoute, private usersService : UsersService, private authService: AuthService,
-    private router: Router) { }
+    private router: Router, private cookieService: CookieService) { }
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -51,9 +54,21 @@ export class UpdateUserComponent implements OnInit {
     })
   }
 
+  changePassword() {
+    this.changedPassword = !this.changedPassword;
+  }
+
   notValid(field: string): boolean {
     return this.updatedForm?.controls[field]?.invalid && this.updatedForm?.controls[field]?.touched
 
+  }
+
+  checkPassword(): boolean {
+    if (this.updatedForm?.controls["password"]?.touched && this.updatedForm?.controls["repassword"]?.touched) {
+      return this.updatedForm?.controls["repassword"].value != this.updatedForm?.controls["password"].value
+    } else {
+      return false;
+    }
   }
 
   getUser() {
@@ -65,12 +80,17 @@ export class UpdateUserComponent implements OnInit {
     })
   }
 
-  editUser() {
+  editUser(fileInput: any) {
     this.json.username = this.updatedForm.value.username;
     this.json.name = this.updatedForm.value.fullname;
     this.json.email = this.updatedForm.value.email;
     this.json.password = this.updatedForm.value.password;
-    this.usersService.editUser(this.json)
+    let fi = fileInput;
+    let fileToUpload = null;
+    if (fileInput!=null && fi.files && fi.files[0]) {
+      fileToUpload = fi.files[0];
+    }
+    this.usersService.editUser(this.json, fileToUpload)
     .subscribe({
       next: (data) => {
         Swal.fire({
@@ -78,6 +98,9 @@ export class UpdateUserComponent implements OnInit {
           title: 'Usuario editado',
           confirmButtonColor: '#8d448b'
         })
+        if(data.img!=null) {
+          this.cookieService.set('user-img', data.img)
+        }
         if(this.authService.isAdminGuard()) {
           this.router.navigate(['/user']);
         }else {
@@ -85,21 +108,22 @@ export class UpdateUserComponent implements OnInit {
         }
       },
       error: (error)=>{
-        Swal.fire({
-          icon: 'error',
-          title: 'Usuario no editado',
-          confirmButtonColor: '#8d448b'
-        })
+        if(error.error=="Usuario repetido") {
+          Swal.fire({
+            icon: 'error',
+            title: error.error,
+            confirmButtonColor: '#8d448b'
+          })
+        }else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Usuario no editado',
+            confirmButtonColor: '#8d448b'
+          })
+        }
         this.router.navigate(['/user']);
       }
     })
   }
 
-  checkPassword(): boolean {
-    if (this.updatedForm?.controls["repassword"]?.touched && this.updatedForm?.controls["password"]?.touched) {
-      return this.updatedForm?.controls["repassword"].value != this.updatedForm?.controls["password"].value
-    } else {
-      return false;
-    }
-  }
 }

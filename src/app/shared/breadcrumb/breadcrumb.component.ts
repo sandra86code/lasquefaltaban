@@ -20,12 +20,12 @@ export class BreadcrumbComponent implements OnInit {
       this.href = 'Registro'
     }else if(url=='/auth/login') {
       this.href = 'Login'
-    }else if(url=='/play') {
+    }else if(url=='/ranking') {
+      this.href = 'Ranking de jugador@s'
+    }else if(url.includes('/game')) {
       this.href = 'Jugar'
-    }else if(url=='/faqs') {
-      this.href = 'FAQS'
     }else if(url=='/about') {
-      this.href = 'Sobre nosotros'
+      this.href = 'Sobre mí'
     }else if(url=='/country') {
       this.href = 'Situación de las mujeres en el mundo'
     }else if(url.includes('/country/')) {

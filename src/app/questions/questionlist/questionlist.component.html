@@ -6,17 +6,17 @@
     <main class="col-10 ms-sm-auto px-md-4  mb-5 mt-4">
       <div class="d-flex flex-column flex-shrink-0 position-sticky text-center">
         <h1 class="display-5 fw-bold mb-5">Listado de preguntas</h1>
-        <a routerLink="/question/add"><button class="btn btn-success btn-lg pull-right mb-5">+ Nueva</button></a>
+        <a routerLink="/question/add"><button class="btn btn-success btn-lg pull-right mb-5">+ Nueva pregunta</button></a>
 
         <table class="table table-bordered table-striped table-hover text-left" datatable [dtOptions]="dtOptions"
           [dtTrigger]="dtTrigger">
           <thead>
-            <tr class="h4 text-center">
-              <th class="align-middle">Pregunta</th>
-              <th class="align-middle">Respuestas</th>
-              <th class="align-middle">Mujer</th>
-              <th class="align-middle">Categorías</th>
-              <th class="align-middle">Acciones</th>
+            <tr class="h4">
+              <th class="align-middle text-center">Pregunta</th>
+              <th class="align-middle text-center">Respuestas</th>
+              <th class="align-middle text-center">Mujer</th>
+              <th class="align-middle text-center">Categoría</th>
+              <th class="align-middle text-center">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -75,10 +75,7 @@
               </td>
 
               <td class="align-middle text-center">{{question.woman.name}}</td>
-              <td class="align-middle">
-                <ul>
-                  <li *ngFor="let qc of question.questioncategories">{{qc.category.name}}</li>
-                </ul>
+              <td class="align-middle text-center">{{question.category.name}}
               </td>
               <td class="align-middle text-center">
                 <button type="button" [routerLink]="['/question/update', question.id]" class="btn btn-info"

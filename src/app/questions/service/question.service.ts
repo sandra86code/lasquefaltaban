@@ -27,8 +27,8 @@ constructor(private http: HttpClient) { }
   }
 
 
-  addQuestion(name:string) {
-    return this.http.post(`${this.url}`, {"name": name}, this.httpOptions);
+  addQuestion(body: any) {
+    return this.http.post(`${this.url}`, body, this.httpOptions);
   }
 
   deleteQuestion(id: number): Observable<boolean> {
@@ -41,13 +41,7 @@ constructor(private http: HttpClient) { }
       )
   }
 
-  editQuestion(question: any): Observable<boolean> {
-    return this.http.put<any>(`${this.url}/${question.id}`, {}, this.httpOptions)
-    .pipe( switchMap(resp => {
-      return of(true);
-    }),catchError(error => {
-        return of(false);
-    })
-    )
+  editQuestion(id: number, body: any) {
+    return this.http.put<any>(`${this.url}/${id}`, body, this.httpOptions)
   }
 }

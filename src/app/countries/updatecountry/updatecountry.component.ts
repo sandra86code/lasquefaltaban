@@ -43,12 +43,17 @@ export class UpdatecountryComponent implements OnInit {
     return this.myForm?.controls[field]?.invalid && this.myForm?.controls[field]?.touched
   }
 
-  editCountry() {
+  editCountry(fileInput: any) {
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched()
     }
     else {
-      this.service.editCountry(this.country.id, this.myForm.value.name, this.myForm.value.description)
+      let fi = fileInput;
+      let fileToUpload = null;
+      if (fileInput!=null && fi.files && fi.files[0]) {
+        fileToUpload = fi.files[0];
+      }
+      this.service.editCountry(this.country.id, this.myForm.value.name, this.myForm.value.description, fileToUpload)
         .subscribe({
           next: (resp) => {
             Swal.fire({
@@ -56,7 +61,7 @@ export class UpdatecountryComponent implements OnInit {
               title: 'País editado',
               confirmButtonColor: '#8d448b'
             })
-            this.route.navigateByUrl('/list')
+            this.route.navigateByUrl('/country/list')
           },
           error: (error) => {
             Swal.fire({
@@ -64,7 +69,7 @@ export class UpdatecountryComponent implements OnInit {
               title: 'País no editado',
               confirmButtonColor: '#8d448b'
             })
-            this.route.navigateByUrl('/list')
+            this.route.navigateByUrl('/country/list')
           }
         })
     }

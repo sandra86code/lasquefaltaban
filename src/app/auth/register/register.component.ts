@@ -53,28 +53,38 @@ export class RegisterComponent implements OnInit {
     this.json.name = this.registerForm.value.fullname;
     this.json.email = this.registerForm.value.email;
     let fi = fileInput;
+    let fileToUpload = null;
 
-    if (fi.files && fi.files[0]) {
-      let fileToUpload = fi.files[0];
+    if (fileInput!=null && fi.files && fi.files[0]) {
+      fileToUpload = fi.files[0];
+    }
       this.service.register(this.json, fileToUpload)
         .subscribe({
           next: (resp) => {
             Swal.fire({
               icon: 'success',
-              title: 'Confirma el enlace en el email que te hemos enviado a tu correo para poder iniciar sesión',
+              title: 'Confirma tu registro haciendo clic en el enlace que te hemos enviado a tu correo',
               confirmButtonColor: '#8d448b'
             })
             this.route.navigateByUrl('/auth/login')
           },
           error: (error) => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Registro de usuario incorrecto',
-              confirmButtonColor: '#8d448b'
-            })
+            if(error.error=="Usuario repetido") {
+              Swal.fire({
+                icon: 'error',
+                title: error.error,
+                confirmButtonColor: '#8d448b'
+              })
+            }else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Registro de usuario incorrecto',
+                confirmButtonColor: '#8d448b'
+              })
+            }
           }
         })
-    }
+
 
   }
 }

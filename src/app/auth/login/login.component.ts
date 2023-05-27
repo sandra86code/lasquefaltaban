@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
             if(this.authService.isAdminGuard()) {
               this.router.navigate(['/user']);
             }else {
-              this.router.navigate(['/country']);
+              this.router.navigate(['/game']);
             }
             
           }

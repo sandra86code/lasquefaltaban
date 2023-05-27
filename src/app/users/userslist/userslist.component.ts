@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { UsersService } from '../services/users.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-userslist',
@@ -16,12 +15,11 @@ export class UserslistComponent implements OnInit {
 
   @ViewChild(DataTableDirective, {static: false})
   dtElement!: DataTableDirective;
-
   dtOptions: DataTables.Settings = {};
-  users!: any;
   dtTrigger: Subject<any> = new Subject<any>();
 
-
+  users!: any;
+ 
 
   json: any = {
     username: '',
@@ -29,9 +27,8 @@ export class UserslistComponent implements OnInit {
     email: ''
   }
 
-  constructor(private httpClient: HttpClient, private usersService: UsersService, private router: Router) { 
+  constructor(private usersService: UsersService) { 
 
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
   ngOnInit(): void {
@@ -51,10 +48,6 @@ export class UserslistComponent implements OnInit {
       })
   }
 
-  ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
-  }
 
   deleteUser(username: string) {
     this.usersService.deleteUser(username)
@@ -65,9 +58,8 @@ export class UserslistComponent implements OnInit {
           title: 'Usuario borrado',
           confirmButtonColor: '#8d448b'
         })
-        .then((result) => {
-          location.reload();
-        })
+        this.ngOnDestroy();
+        this.ngOnInit();
       },
       error: (error)=>{
         Swal.fire({
@@ -83,8 +75,8 @@ export class UserslistComponent implements OnInit {
     this.json.username = username;
     this.json.name = name;
     this.json.email = email;
-
-    this.usersService.editUser(this.json)
+    let fileToUpload: any = null;
+    this.usersService.editUser(this.json, fileToUpload)
     .subscribe({
       next: (data) => {
         Swal.fire({
@@ -92,7 +84,8 @@ export class UserslistComponent implements OnInit {
           title: 'Usuario editado',
           confirmButtonColor: '#8d448b'
         })
-        this.router.navigate(['/user']);
+        this.ngOnDestroy();
+        this.ngOnInit();
       },
       error: (error)=>{
         Swal.fire({
@@ -100,9 +93,14 @@ export class UserslistComponent implements OnInit {
           title: 'Usuario no editado',
           confirmButtonColor: '#8d448b'
         })
-        this.router.navigate(['/user']);
       }
     })
   }
 
+  /**
+   * Método que se desuscribe del evento
+   */
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
 }

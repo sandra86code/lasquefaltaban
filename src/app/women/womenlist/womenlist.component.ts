@@ -7,7 +7,7 @@ import { WomanService } from '../service/woman.service';
 @Component({
   selector: 'app-womenlist',
   templateUrl: './womenlist.component.html',
-  styles: ['h1 {color: #8d448b; } .q-name { width: 500px;}']
+  styles: ['h1 {color: #8d448b; } .q-name { width: 300px;} .q-actions { width: 250px;} .btn-success {font-size: 20px; font-weight: bold;}']
 })
 export class WomenlistComponent implements OnInit {
 
@@ -46,9 +46,8 @@ export class WomenlistComponent implements OnInit {
           title: 'Mujer borrada',
           confirmButtonColor: '#8d448b'
         })
-        .then((result) => {
-          location.reload();
-        })
+        this.ngOnDestroy();
+        this.ngOnInit();
       },
       error: (error)=>{
         Swal.fire({
@@ -60,8 +59,10 @@ export class WomenlistComponent implements OnInit {
     })
   }
 
+  /**
+   * Método que se desuscribe del evento
+   */
   ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
 

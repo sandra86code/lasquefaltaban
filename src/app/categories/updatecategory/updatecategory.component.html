@@ -20,13 +20,13 @@
                   <form class="login-form" (ngSubmit)="editCategory()" [formGroup]="myForm" autocomplete="off">
                     <div class="form-group">
                       <label class="col-form-label" for="username">Nombre de categoría</label>
-                      <input type="text" class="form-control rounded-left" name="name" formControlName="name" required>
+                      <input type="text" class="form-control rounded-left" name="name" formControlName="name">
                       <span class="form-text text-danger" *ngIf="notValid('name')">
                               El nombre de la categoría debe tener como mínimo 2 letras y como máximo 50
                       </span>
                     </div>
                     <div class="form-group">
-                      <button type="submit" [disabled]="myForm.invalid" class="btn btn-primary rounded submit p-3 px-5">Enviar</button>
+                      <button type="submit" [disabled]="myForm.invalid || myForm.pristine" class="btn btn-primary rounded submit p-3 px-5">Enviar</button>
                     </div>
                   </form>
                 </div>

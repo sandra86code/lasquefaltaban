@@ -19,7 +19,7 @@ export class PaginationComponent implements OnInit {
     this.pages = new Array(this.totalPages);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.pages = new Array(this.totalPages);
   }
 

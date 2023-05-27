@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
+import {EditorModule} from 'primeng/editor';
 
 
 
@@ -24,7 +25,8 @@ import { DataTablesModule } from 'angular-datatables';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    DataTablesModule
+    DataTablesModule,
+    EditorModule
   ]
 })
 export class WomenModule { }

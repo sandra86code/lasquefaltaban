@@ -1,8 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Country } from '../interfaces/countries.interface';
+import { Component, OnInit } from '@angular/core';
 import { CountriesService } from '../services/countries.service';
 import Swal from 'sweetalert2';
-import { Page } from 'src/app/shared/pagination/pagination.interface';
 import { Router } from '@angular/router';
 import { ShowingService } from '../services/showing.service';
 
@@ -26,8 +24,7 @@ export class CountrieslistComponent implements OnInit {
   };
 
   
-  constructor(private countriesService: CountriesService, private router: Router,
-    private showingService: ShowingService) { 
+  constructor(private countriesService: CountriesService, private showingService: ShowingService) { 
   }
 
   ngOnInit(): void {

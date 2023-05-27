@@ -29,17 +29,22 @@ export class AddcountryComponent implements OnInit {
     return this.myForm?.controls[field]?.invalid && this.myForm?.controls[field]?.touched
   }
 
-  addCountry() {
+  addCountry(fileInput: any) {
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched()
     }
     else {
-      this.service.addCountry(this.myForm.value.name, this.myForm.value.description)
+      let fi = fileInput;
+      let fileToUpload = null;
+      if (fileInput!=null && fi.files && fi.files[0]) {
+        fileToUpload = fi.files[0];
+      }
+      this.service.addCountry(this.myForm.value.name, this.myForm.value.description, fileToUpload)
         .subscribe({
           next: (resp) => {
             Swal.fire({
               icon: 'success',
-              title: 'País añadida',
+              title: 'País añadido',
               confirmButtonColor: '#8d448b'
             })
             this.route.navigateByUrl('/country/list')
@@ -47,7 +52,7 @@ export class AddcountryComponent implements OnInit {
           error: (error) => {
             Swal.fire({
               icon: 'error',
-              title: 'Mujer no añadida',
+              title: 'País no añadido',
               confirmButtonColor: '#8d448b'
             })
             this.route.navigateByUrl('/country/list')

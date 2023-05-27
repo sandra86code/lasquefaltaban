@@ -6,22 +6,23 @@
       <main class="col-10 ms-sm-auto px-md-4  mb-5 mt-4">
         <div class="d-flex flex-column flex-shrink-0 position-sticky text-center">
           <h1 class="display-5 fw-bold mb-5">Listado de mujeres</h1>
-          <a routerLink="/woman/add"><button class="btn btn-success btn-lg pull-right mb-5">+ Nueva</button></a>
+          <a routerLink="/woman/add"><button class="btn btn-success btn-lg pull-right mb-5">+ Nueva mujer</button></a>
   
           <table class="table table-bordered table-striped table-hover text-left" datatable [dtOptions]="dtOptions"
             [dtTrigger]="dtTrigger">
             <thead>
               <tr class="h4 text-center">
-                <th class="align-middle">Nombre</th>
-                <th class="align-middle">Descripcion</th>
+                <th class="align-middle text-center">Nombre</th>
+                <th class="align-middle text-center">Descripción</th>
+                <th class="align-middle text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
   
               <tr *ngFor="let woman of women" class="h5">
-                <td class="align-middle q-name">{{ woman.name }}</td>
-                <td class="align-middle text-center">{{woman.description}}</td>
-                <td class="align-middle text-center">
+                <td class="align-middle text-center q-name">{{ woman.name }}</td>
+                <td class="align-middle text-center" innerHTML="{{woman.description.substring(0, 300)}}  [...]"></td>
+                <td class="align-middle text-center q-actions">
                   <button type="button" [routerLink]="['/woman/update', woman.id]" class="btn btn-info"
                     style="margin-left: 10px;"><svg xmlns="http://www.w3.org/2000/svg" height="20" height="20"
                       fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
