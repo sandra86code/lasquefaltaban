@@ -21,7 +21,8 @@ export class UpdatecountryComponent implements OnInit {
 
   country!: any;
   myForm: FormGroup = this.fb.group({
-    name: [this.name, [Validators.required, Validators.minLength(20), Validators.maxLength(200)]],
+    //Mínimo Irán (5 caracteres) y máximo Santa Lucía y las Granadinas (27 caracteres)
+    name: [this.name, [Validators.required, Validators.minLength(5), Validators.maxLength(27)]],
     description: [this.description, [Validators.required, Validators.minLength(100)]]
   })
 
@@ -32,7 +33,7 @@ export class UpdatecountryComponent implements OnInit {
         next: res => {
           this.country = res;
           this.myForm.setValue({
-            name: this.country.name,
+            name: this.country.name.replace("Situación de las mujeres en ", ""),
             description: this.country.description
           })
         }
@@ -64,6 +65,7 @@ export class UpdatecountryComponent implements OnInit {
             this.route.navigateByUrl('/country/list')
           },
           error: (error) => {
+            console.log(error)
             Swal.fire({
               icon: 'error',
               title: 'País no editado',

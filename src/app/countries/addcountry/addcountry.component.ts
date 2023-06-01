@@ -18,7 +18,8 @@ export class AddcountryComponent implements OnInit {
   description: string = ""
 
   myForm: FormGroup = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(200)]],
+    //Mínimo Irán (5 caracteres) y máximo Santa Lucía y las Granadinas (27 caracteres)
+    name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(27)]],
     description: ['', [Validators.required, Validators.minLength(100)]]
   })
 

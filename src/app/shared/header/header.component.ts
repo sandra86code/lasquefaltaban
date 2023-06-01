@@ -28,7 +28,6 @@ export class HeaderComponent implements OnInit {
 
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.isLoggedIn$ = this.authService.isLoggedIn;
-    this.isAdmin$ = this.authService.isAdmin;
     this.img = this.authService.userImg;
     this.username = this.authService.userUsername;
     this.isLoggedIn$ = this.authService.isLoggedIn;

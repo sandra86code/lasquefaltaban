@@ -43,7 +43,8 @@ export class CountrieslistadminComponent implements OnInit {
   }
 
   deleteCountry(id: number) {
-    this.countries.deleteCountry(id)
+    console.log("entra en deleteCountry")
+    this.countryService.deleteCountry(id)
     .subscribe({
       next: (data: any) => {
         this.countries = data;
