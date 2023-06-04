@@ -35,6 +35,13 @@ import { EditorModule } from 'primeng/editor';
         ReactiveFormsModule,
         DataTablesModule,
         EditorModule
+    ],
+    exports: [
+        CountryComponent,
+        CountrieslistComponent,
+        CountrieslistadminComponent,
+        AddcountryComponent,
+        UpdatecountryComponent
     ]
 })
 export class CountriesModule { }

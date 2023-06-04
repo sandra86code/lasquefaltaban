@@ -25,6 +25,11 @@ import { DataTablesModule } from 'angular-datatables';
     ReactiveFormsModule,
     RouterModule,
     DataTablesModule
+  ],
+  exports: [
+    UpdatequestionComponent,
+    AddquestionComponent,
+    QuestionlistComponent
   ]
 })
 export class QuestionsModule { }

@@ -23,6 +23,10 @@ import { RouterModule } from '@angular/router';
     NgxPaginationModule,
     DataTablesModule,
     RouterModule
+  ],
+  exports: [
+    UserslistComponent,
+    UpdateUserComponent
   ]
 })
 export class UsersModule { }

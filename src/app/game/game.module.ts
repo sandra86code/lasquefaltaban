@@ -14,7 +14,7 @@ import { DataTablesModule } from 'angular-datatables';
 @NgModule({
   declarations: [
     GameComponent,
-    GameListComponent,
+    GameListComponent
   ],
   imports: [
     CommonModule,
@@ -25,6 +25,10 @@ import { DataTablesModule } from 'angular-datatables';
     ReactiveFormsModule,
     RouterModule,
     DataTablesModule
+  ],
+  exports: [
+    GameComponent,
+    GameListComponent
   ]
 })
 export class GameModule { }

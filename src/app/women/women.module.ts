@@ -27,6 +27,11 @@ import {EditorModule} from 'primeng/editor';
     RouterModule,
     DataTablesModule,
     EditorModule
+  ],
+  exports: [
+    WomenlistComponent,
+    AddwomanComponent,
+    UpdatewomanComponent
   ]
 })
 export class WomenModule { }

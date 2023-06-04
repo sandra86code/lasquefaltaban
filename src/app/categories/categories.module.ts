@@ -25,6 +25,11 @@ import { DataTablesModule } from 'angular-datatables';
     ReactiveFormsModule,
     RouterModule,
     DataTablesModule
+  ],
+  exports: [
+    CategorylistComponent,
+    AddcategoryComponent,
+    UpdatecategoryComponent
   ]
 })
 export class CategoriesModule { }
