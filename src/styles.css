@@ -8393,3 +8393,18 @@ p-dialog .bgColorChange {
 }
 
 
+.hamburguer {
+  color: #8d448b !important;
+}
+
+.crop-image {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.crop-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
