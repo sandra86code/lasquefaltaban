@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { UsersService } from '../services/users.service';
-import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { DataTableDirective } from 'angular-datatables';
 
@@ -43,12 +41,20 @@ export class UserslistComponent implements OnInit {
           this.users = data;
           this.dtTrigger.next(this.users);
         },
-        error: (error)=>{
+        error:(error) =>{
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al recuperar los usuarios',
+            confirmButtonColor: '#8d448b'
+          })
         }
       })
   }
 
-
+  /**
+   * Método que elimina a un usuario
+   * @param username 
+   */
   deleteUser(username: string) {
     this.usersService.deleteUser(username)
     .subscribe({
@@ -71,6 +77,13 @@ export class UserslistComponent implements OnInit {
     })
   }
 
+  /**
+   * Método que edita a un usuario
+   * @param username 
+   * @param name 
+   * @param email 
+   * @param role 
+   */
   editUser(username: string, name: string, email: string, role: string) {
     this.json.username = username;
     this.json.name = name;

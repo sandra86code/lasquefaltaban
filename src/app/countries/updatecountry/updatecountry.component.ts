@@ -40,10 +40,19 @@ export class UpdatecountryComponent implements OnInit {
       })
   }
 
+  /**
+   * Método que controla si los campos del formulario son válidos
+   * @param field - campo del formulario
+   * @returns true si el campo es correcto, false si no lo es
+   */
   notValid(field: string): boolean {
     return this.myForm?.controls[field]?.invalid && this.myForm?.controls[field]?.touched
   }
 
+  /**
+   * Método que edita un país
+   * @param fileInput 
+   */
   editCountry(fileInput: any) {
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched()
@@ -77,6 +86,9 @@ export class UpdatecountryComponent implements OnInit {
     }
   }
 
+  /**
+   * Método que devuelve a la última página visitada en la aplicación
+   */
   goBack() {
     window.history.back();
   }

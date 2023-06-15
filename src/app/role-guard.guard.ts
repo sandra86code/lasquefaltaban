@@ -20,7 +20,7 @@ export class RolGuard implements CanActivate, CanActivateChild {
       Swal.fire({
         icon: 'error',
         title: 'Prohibido',
-        text: 'No tiene permiso para acceder a esa ruta'
+        text: 'No tiene los permisos necesarios para acceder a esa ruta'
       })
       return false
     }

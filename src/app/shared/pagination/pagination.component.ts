@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
@@ -23,6 +23,11 @@ export class PaginationComponent implements OnInit {
     this.pages = new Array(this.totalPages);
   }
 
+  /**
+   * Método que emite el evento cuando se clica en otro número de paǵina en
+   * el paginador
+   * @param selection 
+   */
   onSelect(selection: number) {
     this.selected = selection;
     this.selectPage.emit(this.selected);

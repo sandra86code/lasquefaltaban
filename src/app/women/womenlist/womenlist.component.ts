@@ -32,12 +32,20 @@ export class WomenlistComponent implements OnInit {
         this.women = data
         this.dtTrigger.next(this.women);
       },
-      error: (error)=>{
+      error:(error) =>{
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al recuperar las mujeres',
+          confirmButtonColor: '#8d448b'
+        })
       }
     })
-
   }
 
+  /**
+   * Método que elimina a una mujer
+   * @param id 
+   */
   deleteWoman(id: number) {
     this.womanService.deleteWoman(id)
     .subscribe({

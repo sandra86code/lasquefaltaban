@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import Swal from 'sweetalert2';
 import { GameService } from '../service/game.service';
 
 @Component({
@@ -31,11 +32,19 @@ export class GameListComponent implements OnInit {
         this.games = data
         this.dtTrigger.next(this.games);
       },
-      error: (error)=>{
+      error:(error) =>{
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al recuperar las partidas',
+          confirmButtonColor: '#8d448b'
+        })
       }
     })
   }
 
+  /**
+   * Método que se desuscribe del observable
+   */
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }

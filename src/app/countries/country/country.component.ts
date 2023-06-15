@@ -29,6 +29,9 @@ export class CountryComponent implements OnInit {
       })
   }
 
+  /**
+   * Método que devuelve a la última página visitada en la aplicación
+   */
   goBack() {
     window.history.back();
   }

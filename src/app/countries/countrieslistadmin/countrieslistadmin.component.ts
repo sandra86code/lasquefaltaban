@@ -32,16 +32,20 @@ export class CountrieslistadminComponent implements OnInit {
         this.countries = data;
         this.dtTrigger.next(this.countries);
       },
-      error: (error)=>{
+      error:(error) =>{
         Swal.fire({
           icon: 'error',
-          title: error,
+          title: 'Error al recuperar los países',
           confirmButtonColor: '#8d448b'
         })
       }
     })
   }
 
+  /**
+   * Método que elimina un país
+   * @param id 
+   */
   deleteCountry(id: number) {
     console.log("entra en deleteCountry")
     this.countryService.deleteCountry(id)

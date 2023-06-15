@@ -23,7 +23,7 @@ export class LoggedInGuard implements CanActivate, CanActivateChild {
       Swal.fire({
         icon: 'error',
         title: 'Prohibido',
-        text: 'No tienes permiso para acceder a esa ruta. Loguéate'
+        text: 'No puedes acceder a esta ruta sin estar loguead@'
       })
       return false
     }

@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable, of, switchMap } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
-// import { environment } from 'src/environments/environment';
 import { UsersResponse } from '../interfaces/users.interface';
 
 @Injectable({
@@ -19,15 +18,28 @@ export class UsersService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
+  /**
+   * Método que devuelve todos los usuarios
+   * @returns 
+   */
   getUsers(): Observable<UsersResponse> {
     return this.http.get<UsersResponse>(this.url);
   }
 
+  /**
+   * Método que devuelve un usuario por su id
+   * @param username 
+   * @returns 
+   */
   getUserById(username: string): Observable<UsersResponse> {
     return this.http.get<UsersResponse>(`${this.url}/${username}`, this.httpOptions)
   }
 
-
+  /**
+   * Método que elimina un usuario
+   * @param username 
+   * @returns 
+   */
   deleteUser(username: string): Observable<boolean> {
     return this.http.delete<any>(`${this.url}/${username}`)
       .pipe(switchMap(resp => {
@@ -38,6 +50,12 @@ export class UsersService {
       )
   }
 
+  /**
+   * Método que edita un usuario
+   * @param user 
+   * @param userlogo 
+   * @returns 
+   */
   editUser(user: any, userlogo: File) {
     const form: FormData = new FormData();
     form.append('userlogo', userlogo);

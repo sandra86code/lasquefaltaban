@@ -51,14 +51,23 @@ export class HeaderComponent implements OnInit {
     })
   }
 
+  /**
+   * Método que desloguea al usuario en la aplicación
+   */
   logout() {
     this.authService.logOut();
   }
 
+  /**
+   * Método que abre y cierra el menú hamburguesa de las pantallas medianas y pequeñas
+   */
   toggleNavbar() {
     this.isNavbarOpen = !this.isNavbarOpen;
   }
 
+  /**
+   * Método que cierra el menú hamburguesa de las pantallas medianas y pequeñas
+   */
   closeNavbar() {
     this.isNavbarOpen = false;
   }

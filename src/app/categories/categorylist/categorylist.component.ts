@@ -13,6 +13,7 @@ export class CategorylistComponent implements OnInit {
 
   constructor(private categoryService: CategoryService) { }
 
+
   @ViewChild(DataTableDirective, {static: false})
   dtElement!: DataTableDirective;
   dtOptions: DataTables.Settings = {};
@@ -29,7 +30,6 @@ export class CategorylistComponent implements OnInit {
       processing: true
     };
 
-      
     this.categories = this.categoryService.getCategories()
     .subscribe({
       next: (data) => {
@@ -39,13 +39,17 @@ export class CategorylistComponent implements OnInit {
       error: (error)=>{
         Swal.fire({
           icon: 'error',
-          title: error,
+          title: 'Error al recuperar las categorías',
           confirmButtonColor: '#8d448b'
         })
       }
     })
   }
 
+  /**
+   * Método que elimina una categoría
+   * @param id 
+   */
   deleteCategory(id: number) {
     this.categoryService.deleteCategory(id)
     .subscribe({

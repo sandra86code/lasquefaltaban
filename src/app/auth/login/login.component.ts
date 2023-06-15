@@ -22,23 +22,30 @@ export class LoginComponent implements OnInit {
     password: ""
   }
 
-  notValid(campo: string): boolean {
-    return this.loginForm?.controls[campo]?.invalid &&
-      this.loginForm?.controls[campo]?.touched
+  /**
+   * Método que controla si los campos del formulario son válidos
+   * @param field - campo del formulario
+   * @returns true si el campo es correcto, false si no lo es
+   */
+  notValid(field: string): boolean {
+    return this.loginForm?.controls[field]?.invalid &&
+      this.loginForm?.controls[field]?.touched
   }
 
+  /**
+   * Método que loguea al usuario en la aplicación
+   */
   async login() {
     this.authService.login(this.loginForm.controls["username"].value, this.loginForm.controls["password"].value)
       .subscribe({
         next: (resp) => {
           if (resp) {
             this.authService.setUserCookies(this.loginForm.controls["username"].value)
-            if(this.authService.isAdminGuard()) {
+            if (this.authService.isAdminGuard()) {
               this.router.navigate(['/user']);
-            }else {
+            } else {
               this.router.navigate(['/game']);
             }
-            
           }
           else {
             this.initForm.username = '';
@@ -53,6 +60,6 @@ export class LoginComponent implements OnInit {
           }
         }
       })
-    }
-
   }
+
+}

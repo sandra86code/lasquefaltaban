@@ -37,7 +37,6 @@ export class UpdateUserComponent implements OnInit {
   }
 
   
-  
   constructor(private activatedRoute: ActivatedRoute, private usersService : UsersService, private authService: AuthService,
     private router: Router, private cookieService: CookieService) { }
 
@@ -54,15 +53,26 @@ export class UpdateUserComponent implements OnInit {
     })
   }
 
+  /**
+   * Método que cambia el valor de la variable changedPassword
+   */
   changePassword() {
     this.changedPassword = !this.changedPassword;
   }
 
+  /**
+   * Método que controla si los campos del formulario son válidos
+   * @param field - campo del formulario
+   * @returns true si el campo es correcto, false si no lo es
+   */
   notValid(field: string): boolean {
     return this.updatedForm?.controls[field]?.invalid && this.updatedForm?.controls[field]?.touched
-
   }
 
+  /**
+   * Método que comprueba si las dos contraseñas introducidas son iguales o no
+   * @returns 
+   */
   checkPassword(): boolean {
     if (this.updatedForm?.controls["password"]?.touched && this.updatedForm?.controls["repassword"]?.touched) {
       return this.updatedForm?.controls["repassword"].value != this.updatedForm?.controls["password"].value
@@ -71,6 +81,9 @@ export class UpdateUserComponent implements OnInit {
     }
   }
 
+  /**
+   * Método que devuelve a un usuario
+   */
   getUser() {
     this.usersService.getUserById(this.id)
     .subscribe({
@@ -80,6 +93,10 @@ export class UpdateUserComponent implements OnInit {
     })
   }
 
+  /**
+   * Método que edita a un usuario
+   * @param fileInput 
+   */
   editUser(fileInput: any) {
     this.json.username = this.updatedForm.value.username;
     this.json.name = this.updatedForm.value.fullname;

@@ -31,14 +31,22 @@ export class RegisterComponent implements OnInit {
     email: ''
   }
 
-
   repassword: string = "";
 
+  /**
+   * Método que controla si los campos del formulario son válidos
+   * @param field - campo del formulario
+   * @returns true si el campo es correcto, false si no lo es
+   */
   notValid(field: string): boolean {
     return this.registerForm?.controls[field]?.invalid && this.registerForm?.controls[field]?.touched
 
   }
 
+  /**
+   * Método que comprueba si las contraseñas introducidas son iguales
+   * @returns true si son iguales, false si no lo son
+   */
   checkPassword(): boolean {
     if (this.registerForm?.controls["repassword"]?.touched) {
       return this.registerForm?.controls["repassword"].value != this.registerForm?.controls["password"].value
@@ -47,6 +55,10 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  /**
+   * Nétodo que registra al usuario en la aplicación
+   * @param fileInput 
+   */
   register(fileInput: any) {
     this.json.username = this.registerForm.value.username;
     this.json.password = this.registerForm.value.password;

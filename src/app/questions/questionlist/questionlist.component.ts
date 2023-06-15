@@ -33,11 +33,20 @@ export class QuestionlistComponent implements OnInit {
         this.questions = data
         this.dtTrigger.next(this.questions);
       },
-      error: (error)=>{
+      error:(error) =>{
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al recuperar las preguntas',
+          confirmButtonColor: '#8d448b'
+        })
       }
     })
   }
 
+  /**
+   * Método que elimina una pregunta
+   * @param id 
+   */
   deleteQuestion(id: number) {
     this.questionService.deleteQuestion(id)
     .subscribe({

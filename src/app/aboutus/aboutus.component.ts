@@ -12,5 +12,6 @@ export class AboutusComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // Obtiene el año actual
   year = new Date().getFullYear();
 }

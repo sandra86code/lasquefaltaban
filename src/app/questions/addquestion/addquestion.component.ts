@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { QuestionService } from '../service/question.service';
@@ -48,11 +48,19 @@ export class AddquestionComponent implements OnInit {
     })
   }
 
+  /**
+   * Método que controla si los campos del formulario son válidos
+   * @param field - campo del formulario
+   * @returns true si el campo es correcto, false si no lo es
+   */
   notValid(field: string): boolean {
     return this.addQuestionForm?.controls[field]?.invalid &&
       this.addQuestionForm?.controls[field]?.touched
   }
 
+  /**
+   * Método que añade una pregunta
+   */
   addQuestion() {
     const answers = this.createAnswers();
     let woman = this.women.filter((x: { id: any; }) => x.id == this.selectedWoman)
@@ -91,6 +99,11 @@ export class AddquestionComponent implements OnInit {
       })
   }
 
+  /**
+   * Método que crea las respuestas en el formulario para que puedan ser enviadas
+   * en la petición posteriormente
+   * @returns 
+   */
   createAnswers() {
     let correct1 = false;
     let correct2 = false;
@@ -135,6 +148,9 @@ export class AddquestionComponent implements OnInit {
     return answers;
   }
 
+  /**
+   * Método que devuelve a la última página visitada en la aplicación
+   */
   goBack() {
     window.history.back();
   }

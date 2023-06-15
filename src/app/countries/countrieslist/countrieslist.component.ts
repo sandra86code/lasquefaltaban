@@ -38,7 +38,10 @@ export class CountrieslistComponent implements OnInit {
       })
   }
 
-
+  /**
+   * Método que devuelve los países paginados
+   * @param page 
+   */
   getCountryPage(page: number) {
     this.countries = [];
     this.countriesService.getCountries(page)
@@ -55,7 +58,6 @@ export class CountrieslistComponent implements OnInit {
       }
     })
   }
-
 
 }
 

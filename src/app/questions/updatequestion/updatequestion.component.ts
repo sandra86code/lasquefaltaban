@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionService } from '../service/question.service';
 import Swal from 'sweetalert2';
@@ -13,7 +13,7 @@ import { WomanService } from 'src/app/women/service/woman.service';
 })
 export class UpdatequestionComponent implements OnInit {
 
-  constructor(private questionService: QuestionService, private route: Router, 
+  constructor(private questionService: QuestionService, private route: Router,
     private activatedRoute: ActivatedRoute, private categoryService: CategoryService, private womanService: WomanService) { }
 
   women!: any;
@@ -24,70 +24,83 @@ export class UpdatequestionComponent implements OnInit {
 
   @ViewChild('editQuestionForm') editQuestionForm!: NgForm;
 
-    id: any;
-  
-    question!: any;
+  id: any;
 
-    initForm = {
-      name: "",
-      answer1: "",
-      answer2: "",
-      answer3: "",
-      answer4: "",
-      correct: -1
-    }
-  
-    ngOnInit(): void {
-      this.id = this.activatedRoute.snapshot.paramMap.get('id');
-      this.questionService.getQuestionById(this.id)
-        .subscribe({
-          next: res => {
-            this.question = res;
-            this.initForm.name = this.question.name;
-            this.initForm.answer1 = this.question.answers[0].answer;
-            this.initForm.answer2 = this.question.answers[1].answer;
-            this.initForm.answer3 = this.question.answers[2].answer;
-            this.initForm.answer4 = this.question.answers[3].answer;
-            this.selectedWoman = this.question.woman.id;
-            this.selectedCategory = this.question.category.id;
-            let correctAnswer = this.question.answers.filter((x: { correct: boolean; }) => x.correct == true)
-            this.initForm.correct = this.selectCorrectAnswer(correctAnswer[0].answer);
-          }
-        })
-        this.categoryService.getCategories()
-        .subscribe({
-          next: (resp) => {
-           this.categories = resp
-          }
-        })
-        this.womanService.getWomen()
-        .subscribe({
-          next: (resp) => {
-           this.women = resp
-          }
-        })
-    }
-  
-    selectCorrectAnswer(answer: string): number {
-      let number = 0;
-      if(answer === this.initForm.answer1) {
-        number = 1;
-      }else if(answer === this.initForm.answer2) {
-        number = 2;
-      }else if(answer === this.initForm.answer3) {
-        number = 3;
-      }else {
-        number = 4;
-      }
-      return number;
+  question!: any;
 
-    }
+  initForm = {
+    name: "",
+    answer1: "",
+    answer2: "",
+    answer3: "",
+    answer4: "",
+    correct: -1
+  }
 
-    notValid(field: string): boolean {
-      return this.editQuestionForm?.controls[field]?.invalid &&
-        this.editQuestionForm?.controls[field]?.touched
-    }
+  ngOnInit(): void {
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.questionService.getQuestionById(this.id)
+      .subscribe({
+        next: res => {
+          this.question = res;
+          this.initForm.name = this.question.name;
+          this.initForm.answer1 = this.question.answers[0].answer;
+          this.initForm.answer2 = this.question.answers[1].answer;
+          this.initForm.answer3 = this.question.answers[2].answer;
+          this.initForm.answer4 = this.question.answers[3].answer;
+          this.selectedWoman = this.question.woman.id;
+          this.selectedCategory = this.question.category.id;
+          let correctAnswer = this.question.answers.filter((x: { correct: boolean; }) => x.correct == true)
+          this.initForm.correct = this.selectCorrectAnswer(correctAnswer[0].answer);
+        }
+      })
+    this.categoryService.getCategories()
+      .subscribe({
+        next: (resp) => {
+          this.categories = resp
+        }
+      })
+    this.womanService.getWomen()
+      .subscribe({
+        next: (resp) => {
+          this.women = resp
+        }
+      })
+  }
 
+  /**
+   * Método que selecciona la respuesta correcta
+   * @param answer 
+   * @returns 
+   */
+  selectCorrectAnswer(answer: string): number {
+    let number = 0;
+    if (answer === this.initForm.answer1) {
+      number = 1;
+    } else if (answer === this.initForm.answer2) {
+      number = 2;
+    } else if (answer === this.initForm.answer3) {
+      number = 3;
+    } else {
+      number = 4;
+    }
+    return number;
+
+  }
+
+  /**
+ * Método que controla si los campos del formulario son válidos
+ * @param field - campo del formulario
+ * @returns true si el campo es correcto, false si no lo es
+ */
+  notValid(field: string): boolean {
+    return this.editQuestionForm?.controls[field]?.invalid &&
+      this.editQuestionForm?.controls[field]?.touched
+  }
+
+  /**
+   * Método que edita la pregunta
+   */
   editQuestion() {
     const answers = this.createAnswers();
     let woman = this.women.filter((x: { id: any; }) => x.id == this.selectedWoman)
@@ -106,30 +119,38 @@ export class UpdatequestionComponent implements OnInit {
       }
     };
     this.questionService.editQuestion(this.question.id, body)
-    .subscribe({
-      next: (resp) => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Pregunta editada',
-          confirmButtonColor: '#8d448b'
-        })
-        this.route.navigateByUrl('/question')
-      },
-      error: (error) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Pregunta no editada',
-          confirmButtonColor: '#8d448b'
-        })
-        this.route.navigateByUrl('/question')
-      }
-    })
+      .subscribe({
+        next: (resp) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Pregunta editada',
+            confirmButtonColor: '#8d448b'
+          })
+          this.route.navigateByUrl('/question')
+        },
+        error: (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Pregunta no editada',
+            confirmButtonColor: '#8d448b'
+          })
+          this.route.navigateByUrl('/question')
+        }
+      })
   }
 
+  /**
+   * Método que devuelve a la última página visitada en la aplicación
+   */
   goBack() {
     window.history.back();
   }
 
+  /**
+   * Método que crea las respuestas para poder usarlas en la petición
+   * posteriormente
+   * @returns 
+   */
   createAnswers() {
     let correct1 = false;
     let correct2 = false;
@@ -159,7 +180,7 @@ export class UpdatequestionComponent implements OnInit {
         },
         {
           "answer": this.editQuestionForm.controls["answer2"].value,
-          "correct": correct2        
+          "correct": correct2
         },
         {
           "answer": this.editQuestionForm.controls["answer3"].value,

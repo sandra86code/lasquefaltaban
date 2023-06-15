@@ -18,19 +18,38 @@ constructor(private http: HttpClient) { }
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
+  /**
+   * Método que devuelve a todas las mujeres
+   * @returns 
+   */
   getWomen(): Observable<WomenResponse> {
     return this.http.get<WomenResponse>(this.url);
   }
-
+  
+  /**
+   * Método que devuelve a una mujer por su id
+   * @param id 
+   * @returns 
+   */
   getWomanById(id: number): Observable<WomenResponse> {
     return this.http.get<Woman>(`${this.url}/${id}`, this.httpOptions)
   }
 
-
+  /**
+   * Método que añade a una mujer
+   * @param name 
+   * @param description 
+   * @returns 
+   */
   addWoman(name:string, description:string) {
     return this.http.post(`${this.url}`, {"name": name, "description": description, "img": null}, this.httpOptions);
   }
 
+  /**
+   * Método que elimina a una mujer
+   * @param id 
+   * @returns 
+   */
   deleteWoman(id: number): Observable<boolean> {
     return this.http.delete<any>(`${this.url}/${id}`, this.httpOptions)
       .pipe(switchMap(resp => {
@@ -41,6 +60,13 @@ constructor(private http: HttpClient) { }
       )
   }
 
+  /**
+   * Método que edita a una mujer
+   * @param id 
+   * @param name 
+   * @param description 
+   * @returns 
+   */
   editWoman(id: number, name: string, description: string): Observable<boolean> {
     return this.http.put<any>(`${this.url}/${id}`, {"name": name, "description": description, "img": null}, this.httpOptions)
     .pipe( switchMap(resp => {

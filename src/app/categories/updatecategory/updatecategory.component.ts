@@ -23,6 +23,7 @@ export class UpdatecategoryComponent implements OnInit {
     name: [this.name, [Validators.required, Validators.minLength(2), Validators.maxLength(50)]]
   })
 
+
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.service.getCategoryById(this.id)
@@ -36,10 +37,18 @@ export class UpdatecategoryComponent implements OnInit {
       })
   }
 
+  /**
+   * Método que controla si los campos del formulario son válidos
+   * @param field - campo del formulario
+   * @returns true si el campo es correcto, false si no lo es
+   */
   notValid(field: string): boolean {
     return this.myForm?.controls[field]?.invalid && this.myForm?.controls[field]?.touched
   }
 
+  /**
+   * Método que edita una categoría
+   */
   editCategory() {
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched()
@@ -67,6 +76,9 @@ export class UpdatecategoryComponent implements OnInit {
     }
   }
 
+  /**
+   * Método que devuelve a la última página visitada en la aplicación
+   */
   goBack() {
     window.history.back();
   }

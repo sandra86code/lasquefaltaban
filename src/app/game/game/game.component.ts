@@ -35,18 +35,21 @@ export class GameComponent implements OnInit {
   showColor: boolean = false;
   questionsNumber: any = null;
   notAnsweredQuestion: boolean = false;
+
   //Timer
   counter$!: Observable<number>;
   subscription!: Subscription;
   isPaused: boolean = false;
   seconds: any = null;
 
+
   ngOnInit(): void {
     this.isLoggedIn$ = this.authService.isLoggedIn
   }
 
-  
-  
+  /**
+   * Método que devuelve la lista de preguntas del juego
+   */
   getQuestionsGame() {
     this.gameService.getQuestionsGame(this.questionsNumber)
       .subscribe({
@@ -59,7 +62,11 @@ export class GameComponent implements OnInit {
       })
   }
 
-
+  /**
+   * Método que resuelve si la respuesta seleccionada es la correcta o no
+   * @param correct 
+   * @param index 
+   */
   resolveQuestion(correct: boolean, index: number) {
     if(!correct && index == -1){
       this.answered = true;
@@ -77,6 +84,9 @@ export class GameComponent implements OnInit {
     } 
   }
 
+  /**
+   * Método que muestra la siguiente pregunta
+   */
   nextQuestion() {
     this.notAnsweredQuestion = false;
     if(this.index<this.questionsGame.length-1) {
@@ -91,9 +101,11 @@ export class GameComponent implements OnInit {
       this.moreQuestions = false;
       this.subscription.unsubscribe();
     }
-
   }
 
+  /**
+   * Método que añade un juego
+   */
   addGame() {
     this.gameEnded = true;
     this.gameService.addGame(this.score, this.cookieService.get('user-username'))
@@ -110,17 +122,22 @@ export class GameComponent implements OnInit {
     })
   }
   
+  /**
+   * Método que muestra el modal con la información sobre la mujer
+   */
   showWomanInformation() {
     this.showWomanInfo = true;
   }
 
+  /**
+   * Método que cierra el modal con la información de la mujer
+   */
   closeWomanInfo() {
     this.showWomanInfo = false;
   }
 
-
   /**
-   * Método que inicia la cuenta atrás
+   * Método que inicia la cuenta atrás del cronómetro
    */
   startTimer() {
     this.counter$ = timer(0, 1000).pipe(
@@ -139,7 +156,6 @@ export class GameComponent implements OnInit {
         }
       })
     );
-
     this.subscription = this.counter$.subscribe();
   }
 
@@ -167,6 +183,9 @@ export class GameComponent implements OnInit {
     this.showColor = true;
   }
 
+  /**
+   * Método que recarga el componente
+   */
   reload() {
     const currentUrl = this.route.url;
     this.route.navigateByUrl('/', { skipLocationChange: true }).then(() => {
