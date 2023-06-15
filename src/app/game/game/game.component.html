@@ -47,8 +47,12 @@
          
           <div class="col-md-8 col-lg-5" *ngIf="currentQuestion">
              <!-- Timer -->
-            <div id="timer" class="d-flex flex-row-reverse bd-highlight" >
+            <div id="timer" class="d-flex flex-row-reverse bd-highlight">
               <div *ngIf="!isPaused">{{ (counter$ | async) }}'</div>
+              <i *ngIf="isPaused" class="material-symbols-outlined">pause</i>
+              <audio *ngIf="isPlaying" autoplay>
+                <source src="assets/audio/countdown.mp3" type="audio/mpeg">
+              </audio>              
             </div>
             <h1 class="mb-5">{{currentQuestion.category.name}}</h1>
             <table class="table table-bordered table-striped table-hover text-left">
@@ -112,7 +116,7 @@
 <!-- MODAL DE INFORMACIÓN DE LAS MUJERES -->
 <div *ngIf="showWomanInfo">
   <p-dialog [modal]="true" [(visible)]="showWomanInfo" [closable]="true" [draggable]="false"
-  [style]="{'width':'90%', 'max-width':'900px', 'max-height': '450px'}" styleClass="bgColorChange">
+  [style]="{'width':'90%', 'max-width':'900px', 'max-height': '450px', 'position': 'relative', 'overflow': 'visible'}" styleClass="bgColorChange">
     <div class="col-12">
       <div class="row align-items-center">
         <h1>{{currentQuestion.woman.name}}</h1>
@@ -125,6 +129,8 @@
       </div>
     </div>
   </p-dialog>
+
+  <div class="dialog-background" *ngIf="showWomanInfo"></div>
 </div>
 
 <!-- PANTALLA DE PUNTOS -->

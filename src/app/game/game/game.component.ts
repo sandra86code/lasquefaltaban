@@ -41,7 +41,9 @@ export class GameComponent implements OnInit {
   subscription!: Subscription;
   isPaused: boolean = false;
   seconds: any = null;
-
+  
+  //Sonido
+  isPlaying: boolean = false;
 
   ngOnInit(): void {
     this.isLoggedIn$ = this.authService.isLoggedIn
@@ -153,6 +155,9 @@ export class GameComponent implements OnInit {
         //Si el valor llega a cero, llama a la función de resolver
         if (value === 0) {
           this.resolveQuestion(false, -1);
+          this.isPlaying = false;
+        }else if(value<=5) {
+          this.isPlaying = true;
         }
       })
     );

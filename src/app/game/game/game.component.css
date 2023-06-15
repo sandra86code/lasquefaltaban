@@ -34,6 +34,10 @@ img {width: 300px}
     margin-left: auto;
   }
 
+  #timer .material-symbols-outlined {
+    font-size: 1.7em;
+  }
+
   @media (max-width: 767px) {
     #timer {
       width: 6rem;
@@ -41,8 +45,29 @@ img {width: 300px}
       font-size: 2em;
       padding: 10px;
     }
+
+    #timer .material-symbols-outlined {
+      font-size: 1.2em;
+    }
   }
-  
+
+  .dialog-container {
+    position: relative;
+    z-index: 9999;
+  }
+
+  .dialog-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    pointer-events: none;
+  }
+
+
   #timer div {
     display: flex;
     justify-content: center;
