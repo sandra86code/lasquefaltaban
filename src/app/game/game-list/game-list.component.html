@@ -1,23 +1,24 @@
+<app-breadcrumb class="d-lg-none"></app-breadcrumb>
 <div class="container-fluid">
-    <div class="row">
-      <div class="col-2">
-        <app-sidebar></app-sidebar>
-      </div>
-      <main class="col-10 ms-sm-auto px-md-4  mb-5 mt-4">
-        <div class="d-flex flex-column flex-shrink-0 position-sticky text-center">
+  <div class="row">
+    <div class="col-2 d-none d-lg-block">
+      <app-sidebar></app-sidebar>
+    </div>
+    <main class="col-lg-10 col-md-10 col-sm-10 ms-sm-auto mb-5 px-md-4 mt-4 mx-auto text-center">
+      <div class="flex-shrink-0 position-sticky text-center align-top">
           <h1 class="display-5 fw-bold mb-5">Listado de partidas</h1>
   
           <table class="table table-bordered table-striped table-hover text-left" datatable [dtOptions]="dtOptions"
             [dtTrigger]="dtTrigger">
             <thead>
-              <tr class="h4 text-center">
-                <th class="align-middle text-center">Usuario</th>
-                <th class="align-middle text-center">Fecha</th>
-                <th class="align-middle text-center">Puntuación</th>
+              <tr>
+                <th class="align-middle text-center h5 fw-bold">Usuario</th>
+                <th class="align-middle text-center h5 fw-bold">Fecha</th>
+                <th class="align-middle text-center h5 fw-bold">Puntos</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let game of games" class="h5">
+              <tr *ngFor="let game of games">
                 <td class="align-middle text-center q-name">{{ game.user.username }}</td>
                 <td class="align-middle text-center"> {{ game.date}}</td>
                 <td class="align-middle text-center"> {{ game.score}}</td>

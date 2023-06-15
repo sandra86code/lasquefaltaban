@@ -7,7 +7,7 @@ import { WomanService } from '../service/woman.service';
 @Component({
   selector: 'app-womenlist',
   templateUrl: './womenlist.component.html',
-  styles: ['h1 {color: #8d448b; } .q-name { width: 300px;} .q-actions { width: 250px;} .btn-success {font-size: 20px; font-weight: bold;}']
+  styles: ['h1 {color: #8d448b; } .q-name { width: 300px;} .q-actions { width: 250px;} .btn-success {font-size: 20px; font-weight: bold;} .separation{margin-bottom: 8rem}']
 })
 export class WomenlistComponent implements OnInit {
 
@@ -35,6 +35,7 @@ export class WomenlistComponent implements OnInit {
       error: (error)=>{
       }
     })
+
   }
 
   deleteWoman(id: number) {

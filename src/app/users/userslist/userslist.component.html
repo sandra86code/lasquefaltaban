@@ -1,39 +1,40 @@
+<app-breadcrumb class="d-lg-none"></app-breadcrumb>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-2">
+    <div class="col-2 d-none d-lg-block">
       <app-sidebar></app-sidebar>
     </div>
-    <main class="col-10 ms-sm-auto px-md-4 mb-5 mt-4">
+    <main class="col-lg-10 col-md-10 col-sm-12 ms-sm-auto mb-5 px-md-4 mt-4 mx-auto text-center">
       <div class="flex-shrink-0 position-sticky text-center align-top">
         <h1 class="display-5 fw-bold mb-5">Listado de usuari@s</h1>
 
         <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions"
           [dtTrigger]="dtTrigger">
           <thead>
-            <tr class="h4">
-              <th class="align-middle text-center">Nombre de usuari@</th>
-              <th class="align-middle text-center">Email</th>
-              <th class="align-middle text-center">Nombre completo</th>
-              <th class="align-middle text-center">Rol</th>
-              <th class="align-middle text-center">Acciones</th>
+            <tr>
+              <th class="align-middle text-center h5 fw-bold">Nombre</th>
+              <th class="align-middle text-center h5 fw-bold d-none d-lg-table-cell">Email</th>
+              <th class="align-middle text-center h5 fw-bold d-none d-lg-table-cell" >Nombre completo</th>
+              <th class="align-middle text-center h5 fw-bold">Rol</th>
+              <th class="align-middle text-center h5 fw-bold">Acciones</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of users" class="h5">
-              <td>{{ user.username }}</td>
-              <td>{{ user.email }}</td>
-              <td>{{ user.name }}</td>
-              <td>{{ user.role }}</td>
+            <tr *ngFor="let user of users">
+              <td class="align-middle text-center">{{ user.username }}</td>
+              <td class="align-middle text-center d-none d-lg-table-cell">{{ user.email }}</td>
+              <td class="align-middle text-center d-none d-lg-table-cell">{{ user.name }}</td>
+              <td class="align-middle text-center">{{ user.role }}</td>
               <td>
                 <button type="button" (click)="editUser(user.username, user.name, user.email, user.role)"
-                  class="btn btn-info" style="margin-left: 10px;"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                  class="btn btn-info mb-2 mt-2" style="margin-left: 10px;"><svg xmlns="http://www.w3.org/2000/svg" width="16"
                     height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                     <path
                       d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                     <path fill-rule="evenodd"
                       d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                   </svg> Editar</button>
-                <button type="button" (click)="deleteUser(user.username)" class="btn btn-danger"
+                <button type="button" (click)="deleteUser(user.username)" class="btn btn-danger mb-2 mt-2"
                   style="margin-left: 10px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                     fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
                     <path

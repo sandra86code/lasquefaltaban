@@ -27,4 +27,8 @@ export class RankingService {
     return this.http.get<any>(`${this.url}/game/user`, this.httpOptions)
   }
 
+  getScoreOfUser(username: string): Observable<any> {
+    return this.http.get<any>(`${this.url}/game/user/${username}/score`, this.httpOptions)
+  }
+
 }

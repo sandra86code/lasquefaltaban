@@ -19,8 +19,8 @@ img {width: 300px}
 /* Countdown de game */
 
 #timer {
-    width: 150px;
-    height: 150px;
+    width: 9rem;
+    height: 9rem;
     border-radius: 50%;
     border-radius: 50%;
     background-color: #5e1f5d;
@@ -29,9 +29,18 @@ img {width: 300px}
     align-items: center;
     color: white;
     font-size: 3em;
-    font-weight: 100;
+    font-weight: bold;
     padding: 20px;
     margin-left: auto;
+  }
+
+  @media (max-width: 767px) {
+    #timer {
+      width: 6rem;
+      height: 6rem;
+      font-size: 2em;
+      padding: 10px;
+    }
   }
   
   #timer div {

@@ -1,20 +1,21 @@
+<app-breadcrumb class="d-lg-none"></app-breadcrumb>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-2">
+    <div class="col-2 d-none d-lg-block">
       <app-sidebar></app-sidebar>
     </div>
-    <main class="col-10 ms-sm-auto px-md-4 mb-5">
-      <a (click)="goBack()">
+    <main class="col-lg-10 col-md-12 col-sm-12 ms-sm-auto mb-5 px-md-4 mt-4 mx-auto">
+      <a (click)="goBack()" class="d-none d-lg-block">
         <i class="material-symbols-outlined ms-5 back" data-bs-toggle="tooltip" data-bs-placement="right"
           data-bs-title="Volver atrás">arrow_back_ios</i>
       </a>  
-      <section class="ftco-section">
+      <section class="ftco-section text-center">
           
           <div class="container mb-5">
             
             <div class="row justify-content-center">
               
-              <div class="col-md-6 col-lg-7">
+              <div class="col-md-12 col-lg-7">
                 
                 <div class="login-wrap p-4 p-md-5">
                   <div class="icon d-flex align-items-center justify-content-center">

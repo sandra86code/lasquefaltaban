@@ -1,8 +1,12 @@
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Inicio</a></li>
-    <li class="breadcrumb-item active" aria-current="page" *ngIf="countryName=='a'">{{href}}</li>
-    <li class="breadcrumb-item" *ngIf="countryName!='a'"><a routerLink="/country" routerLinkActive="active">{{href}}</a></li>
-    <li class="breadcrumb-item active" aria-current="page" *ngIf="countryName!='a'">{{countryName}}</li>
+    <li class="breadcrumb-item active" aria-current="page" *ngIf="countryName=='a' && addOrUpdateName=='b'">{{href}}</li>
+
+    <li class="breadcrumb-item" *ngIf="countryName!='a' && addOrUpdateName=='b'"><a routerLink="/country" routerLinkActive="active">{{href}}</a></li>
+    <li class="breadcrumb-item active" aria-current="page" *ngIf="countryName!='a' && addOrUpdateName=='b'">{{countryName}}</li>
+
+    <li class="breadcrumb-item" *ngIf="countryName=='a' && addOrUpdateName!='b'"><a (click)="goBack()">{{href}}</a></li>
+    <li class="breadcrumb-item active" aria-current="page" *ngIf="countryName=='a' && addOrUpdateName!='b'">{{addOrUpdateName}}</li>
   </ol>
 </nav>

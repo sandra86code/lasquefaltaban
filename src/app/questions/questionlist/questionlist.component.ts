@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-questionlist',
   templateUrl: './questionlist.component.html',
-  styles: ['h1 {color: #8d448b; } .q-name { width: 500px;} .btn-success {font-size: 20px; font-weight: bold;} ']
+  styles: ['h1 {color: #8d448b; } .q-name { width: 500px;} .btn-success {font-size: 20px; font-weight: bold;} .separation{margin-bottom: 8rem}']
 })
 export class QuestionlistComponent implements OnInit {
 

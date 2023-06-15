@@ -3,11 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../auth/services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
+import { RankingService } from 'src/app/ranking/service/ranking.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styles: ['.button-active { color: #fff; background-color: #b08f26; border-color: #b08f26 !important} .activeMenu { color: #b08f26 !important; } .material-symbols-outlined { color: #5e1f5d} .big-icon {font-size: 48px; }.special-inline { display: inline-block} .active { background-color: #8d448b !important; color: white !important;}' ]
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
 
@@ -21,8 +22,11 @@ export class HeaderComponent implements OnInit {
   usernameCookie!: string;
   imgCookie!: string;
   isAdmin!: string;
+  isNavbarOpen: boolean = false;
 
-  constructor(private authService: AuthService,  private activatedRoute: ActivatedRoute, private cookieService: CookieService) { }
+  score: number = -1;
+  constructor(private authService: AuthService,  private activatedRoute: ActivatedRoute, 
+    private rankingService: RankingService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
 
@@ -37,10 +41,25 @@ export class HeaderComponent implements OnInit {
     this.username = this.authService.userUsername;
     this.usernameCookie = this.cookieService.get('user-username')
     this.imgCookie = this.cookieService.get('user-img')
+    this.rankingService.getScoreOfUser(this.usernameCookie)
+    .subscribe({
+      next: (resp) => {
+        if (resp) {
+          this.score = resp.score;
+        }
+      }
+    })
   }
 
   logout() {
     this.authService.logOut();
+  }
 
+  toggleNavbar() {
+    this.isNavbarOpen = !this.isNavbarOpen;
+  }
+
+  closeNavbar() {
+    this.isNavbarOpen = false;
   }
 }

@@ -1,29 +1,31 @@
+<app-breadcrumb class="d-lg-none"></app-breadcrumb>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-2">
+    <div class="col-2 d-none d-lg-block">
       <app-sidebar></app-sidebar>
     </div>
-    <main class="col-10 ms-sm-auto px-md-4  mb-5 mt-4">
-      <div class="d-flex flex-column flex-shrink-0 position-sticky text-center">
-        <h1 class="display-5 fw-bold mb-5">Listado de preguntas</h1>
-        <a routerLink="/question/add"><button class="btn btn-success btn-lg pull-right mb-5">+ Nueva pregunta</button></a>
-
+    <main class="col-lg-10 col-md-10 col-sm-12 ms-sm-auto mb-5 px-md-4 mt-4 mx-auto text-center">
+      <div class="flex-shrink-0 position-sticky text-center align-top">
+          <h1 class="display-5 fw-bold mb-5">Listado de preguntas</h1>
+          <div class="separation">
+            <a routerLink="/question/add"><button class="btn btn-success btn-lg pull-right">+ Nueva pregunta</button></a>
+          </div>
         <table class="table table-bordered table-striped table-hover text-left" datatable [dtOptions]="dtOptions"
           [dtTrigger]="dtTrigger">
           <thead>
-            <tr class="h4">
-              <th class="align-middle text-center">Pregunta</th>
-              <th class="align-middle text-center">Respuestas</th>
-              <th class="align-middle text-center">Mujer</th>
-              <th class="align-middle text-center">Categoría</th>
-              <th class="align-middle text-center">Acciones</th>
+            <tr>
+              <th class="align-middle text-center h5 fw-bold">Pregunta</th>
+              <th class="align-middle text-center h5 fw-bold d-none d-lg-table-cell">Respuestas</th>
+              <th class="align-middle text-center h5 fw-bold d-none d-lg-table-cell">Mujer</th>
+              <th class="align-middle text-center h5 fw-bold d-none d-lg-table-cell">Categoría</th>
+              <th class="align-middle text-center h5 fw-bold">Acciones</th>
             </tr>
           </thead>
           <tbody>
 
-            <tr *ngFor="let question of questions" class="h5">
+            <tr *ngFor="let question of questions">
               <td class="align-middle q-name">{{ question.name }}</td>
-              <td class="align-middle">
+              <td class="align-middle text-center d-none d-lg-table-cell">
                 <p><span *ngIf="question.answers[0].correct"><svg xmlns="http://www.w3.org/2000/svg" height="20"
                       height="20" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                       <path
@@ -74,11 +76,11 @@
                 </p>
               </td>
 
-              <td class="align-middle text-center">{{question.woman.name}}</td>
-              <td class="align-middle text-center">{{question.category.name}}
+              <td class="align-middle text-center d-none d-lg-table-cell">{{question.woman.name}}</td>
+              <td class="align-middle text-center d-none d-lg-table-cell">{{question.category.name}}
               </td>
               <td class="align-middle text-center">
-                <button type="button" [routerLink]="['/question/update', question.id]" class="btn btn-info"
+                <button type="button" [routerLink]="['/question/update', question.id]" class="btn btn-info mb-2 mt-2"
                   style="margin-left: 10px;"><svg xmlns="http://www.w3.org/2000/svg" height="20" height="20"
                     fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                     <path
@@ -86,7 +88,7 @@
                     <path fill-rule="evenodd"
                       d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                   </svg> Editar</button>
-                <button type="button" (click)="deleteQuestion(question.id)" class="btn btn-danger"
+                <button type="button" (click)="deleteQuestion(question.id)" class="btn btn-danger mb-2 mt-2"
                   style="margin-left: 10px;"><svg xmlns="http://www.w3.org/2000/svg" height="20" height="20"
                     fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
                     <path

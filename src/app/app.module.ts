@@ -8,7 +8,6 @@ import { SharedModule } from './shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AuthInterceptorService } from './auth-interceptor.service';
 import { HomeModule } from './home/home.module';
-import { AboutusComponent } from './page-info/aboutus/aboutus.component';
 import { RolGuard } from './role-guard.guard';
 import { FormsModule } from '@angular/forms';
 import { AuthModule } from './auth/auth.module';
@@ -24,6 +23,7 @@ import { EditorModule } from 'primeng/editor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VerifyComponent } from './verify/verify.component';
 import { LoggedInGuard } from './loggedin-guard.guard';
+import { AboutusComponent } from './aboutus/aboutus.component';
 
 @NgModule({
   declarations: [

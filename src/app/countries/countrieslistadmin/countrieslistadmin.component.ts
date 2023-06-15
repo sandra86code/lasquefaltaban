@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'app-countrieslistadmin',
   templateUrl: './countrieslistadmin.component.html',
-  styles: ['h1 {color: #8d448b; } .btn-success {font-size: 20px; font-weight: bold;} .q-name { width: 300px;} .q-actions { width: 250px;}']
+  styles: ['h1 {color: #8d448b; } .btn-success {font-size: 20px; font-weight: bold;} .q-name { width: 300px;} .q-actions { width: 250px;} .separation{margin-bottom: 8rem}']
 })
 export class CountrieslistadminComponent implements OnInit {
 

@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'app-categorylist',
   templateUrl: './categorylist.component.html',
-  styles: ['h1 {color: #8d448b; } .btn-success {font-size: 20px; font-weight: bold;}']
+  styles: ['h1 {color: #8d448b; } .btn-success {font-size: 20px; font-weight: bold;} .separation{margin-bottom: 8rem}']
 })
 export class CategorylistComponent implements OnInit {
 

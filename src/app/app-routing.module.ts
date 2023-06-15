@@ -3,13 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { HomeComponent } from './home/home/home.component';
-import { AboutusComponent } from './page-info/aboutus/aboutus.component';
 import { RolGuard } from './role-guard.guard';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { RankingComponent } from './ranking/ranking/ranking.component';
 import { GameComponent } from './game/game/game.component';
 import { VerifyComponent } from './verify/verify.component';
 import { LoggedInGuard } from './loggedin-guard.guard';
+import { AboutusComponent } from './aboutus/aboutus.component';
 
 const routes: Routes = [
   {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, } from '@angular/router';
 import { CountriesService } from '../services/countries.service';
 import { Country } from '../interfaces/countries.interface';
 
@@ -14,6 +14,7 @@ export class CountryComponent implements OnInit {
   country!: Country;
 
   countryName: String = "a";
+  
   
   constructor(private activatedRoute: ActivatedRoute, private countriesService: CountriesService) { }
 
@@ -31,4 +32,5 @@ export class CountryComponent implements OnInit {
   goBack() {
     window.history.back();
   }
+  
 }

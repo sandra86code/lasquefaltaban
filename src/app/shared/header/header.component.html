@@ -1,21 +1,28 @@
 <header
-  class="col-lg bg-white d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom sticky-top">
-  <a routerLink="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-    <img class="bi me-2 mt-2" width="170" aria-label="Las Que Falta(ba)n" src="assets/logo1.png">
+  class="col-lg bg-white d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 border-bottom sticky-top">
+  <a routerLink="/" class="d-none d-md-flex align-items-center col-md-3 col-lg-2 mb-3 mb-md-0 text-dark text-decoration-none">
+    <img class="bi me-2 mt-2 mb-3" width="170" aria-label="Las Que Falta(ba)n" src="assets/logo1.png">
+  </a>
+  <a routerLink="/" class="d-flex justify-content-center text-center d-md-none">
+    <img class="bi me-2 mt-2 mb-3" width="170" aria-label="Las Que Falta(ba)n" src="assets/logo1.png">
   </a>
 
-  <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-    <li><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/" routerLinkActive="activeMenu"
-        [routerLinkActiveOptions]="{exact:true}">Inicio</a></li>
-    <li><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/game" routerLinkActive="activeMenu">Jugar</a></li>
-    <li><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/ranking" routerLinkActive="activeMenu">Ranking</a></li>
-    <li><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/country" routerLinkActive="activeMenu" [routerLinkActiveOptions]="{exact: true}">Las mujeres en el
-        mundo</a></li>
-    <li><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/about" routerLinkActive="activeMenu">Sobre mí</a>
-    </li>
-  </ul>
+  <div class="d-none d-lg-block col-lg-7">
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+      <li class="nav-item"><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/" routerLinkActive="activeMenu"
+          [routerLinkActiveOptions]="{exact:true}">Inicio</a></li>
+      <li class="nav-item"><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/game" routerLinkActive="activeMenu" [routerLinkActiveOptions]="{exact:true}">Jugar</a></li>
+      <li class="nav-item"><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/ranking" routerLinkActive="activeMenu">Ranking</a></li>
+      <li class="nav-item"><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/country" routerLinkActive="activeMenu" [routerLinkActiveOptions]="{exact: true}">Las mujeres en el
+          mundo</a></li>
+      <li class="nav-item"><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/about" routerLinkActive="activeMenu">Sobre mí</a>
+      </li>
+    </ul>
+  </div>
 
-  <div class="col-3 text-end me-1">
+  
+  
+  <div class="text-end me-1 mb-3">
     <div class="button-group " *ngIf="!(isLoggedIn$|async) else logOut">
       <button type="button" class="btn btn-secondary btn-lg me-2" routerLink="/auth/login">Acceder</button>
       <button type="button" class="btn btn-primary btn-lg" routerLink="/auth/register">Registrarse</button>
@@ -47,17 +54,46 @@
           </a>
           <span *ngIf="username | async">{{username | async}}</span>
           <span *ngIf="!(username | async)">{{usernameCookie}}</span>
+          
           <ul class="dropdown-menu text-small shadow">
+            <li *ngIf="score!=-1" class="text-center" style="font-weight: bold; color:#5e1f5d">{{score}} puntos</li>
+            <div class="d-flex justify-content-center">
+              <hr style="border-color: #5e1f5d; width: 70%" class="my-4 w-70 bg-primary">
+            </div>
             <li *ngIf="(username | async)"><a class="dropdown-item" [routerLink]="['/user/update', username | async]" routerLinkActive="active">Modificar
                 mis datos</a></li>
             <li *ngIf="!(username | async)"><a class="dropdown-item" [routerLink]="['/user/update', usernameCookie]" routerLinkActive="active">Modificar
                   mis datos</a></li>
+                  
           </ul>
         </div>
       </div>
-      <div class="special-inline">
+      <div class="special-inline text-end">
         <a routerLink="/" (click)="logout()"><i class="material-symbols-outlined big-icon">logout</i></a>
       </div>
     </ng-template>
   </div>
+
+  <div class="d-lg-none col-sm-12 col-md-12 hamburguer-menu">
+    <button class="navbar-toggler d-lg-none text-left" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()" [attr.aria-expanded]="isNavbarOpen ? 'true' : 'false'">
+      <i class="material-symbols-outlined hamburguer-icon">
+        menu
+      </i>
+    </button>
+  </div>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{'show': isNavbarOpen}">
+    <ul class="navbar-nav ms-auto text-left">
+      <li class="nav-item"><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/" routerLinkActive="activeMenu"
+          [routerLinkActiveOptions]="{exact:true}" (click)="closeNavbar()">Inicio</a></li>
+      <li class="nav-item"><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/game" routerLinkActive="activeMenu" [routerLinkActiveOptions]="{exact:true}" (click)="closeNavbar()">Jugar</a></li>
+      <li class="nav-item"><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/ranking" routerLinkActive="activeMenu" (click)="closeNavbar()">Ranking</a></li>
+      <li class="nav-item"><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/country" routerLinkActive="activeMenu" [routerLinkActiveOptions]="{exact: true}" (click)="closeNavbar()">Las mujeres en el
+          mundo</a></li>
+      <li class="nav-item"><a class="nav-link px-2 mx-3 font-weight-bold" routerLink="/about" routerLinkActive="activeMenu" (click)="closeNavbar()">Sobre mí</a>
+      </li>
+    </ul>
+  </div>
+
 </header>
