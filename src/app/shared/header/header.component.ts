@@ -47,9 +47,10 @@ export class HeaderComponent implements OnInit {
         if (resp) {
           this.score = resp.score;
         }
-      }
+      },
+      complete: () => this.reload()
     })
-    this.reload();
+    
   }
 
   /**
