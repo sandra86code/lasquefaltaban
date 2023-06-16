@@ -26,7 +26,8 @@ export class HeaderComponent implements OnInit {
 
   score: number = -1;
   constructor(private authService: AuthService,  private activatedRoute: ActivatedRoute, 
-    private rankingService: RankingService, private cookieService: CookieService, private route: Router) { }
+    private rankingService: RankingService, private cookieService: CookieService, private route: Router,
+    private location: Location) { }
 
   ngOnInit(): void {
 
@@ -41,6 +42,7 @@ export class HeaderComponent implements OnInit {
     this.username = this.authService.userUsername;
     this.usernameCookie = this.cookieService.get('user-username')
     this.imgCookie = this.cookieService.get('user-img')
+    this.location.reload();
     this.rankingService.getScoreOfUser(this.usernameCookie)
     .subscribe({
       next: (resp) => {
