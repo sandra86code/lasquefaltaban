@@ -70,12 +70,14 @@ export class GameComponent implements OnInit {
    * @param index 
    */
   resolveQuestion(correct: boolean, index: number) {
+    this.isPlaying = false;
     if(!correct && index == -1){
       this.answered = true;
       this.notAnsweredQuestion = true;
       this.selected = this.currentQuestion.answers.filter((x) => x.correct == true)
       this.selected = this.selected[0]
       this.isPaused = true;
+      
     }else {
       this.pauseTimer();
       this.answered = true;
@@ -91,7 +93,6 @@ export class GameComponent implements OnInit {
    */
   nextQuestion() {
     this.notAnsweredQuestion = false;
-    this.isPlaying = false;
     if(this.index<this.questionsGame.length-1) {
       this.answered = false;
       this.index = this.index + 1;
@@ -159,7 +160,7 @@ export class GameComponent implements OnInit {
           this.isPlaying = false;
         }else if(value<=5 && !this.isPaused) {
           this.isPlaying = true;
-        }else if(this.isPaused) {
+        }else if(value>5 && this.isPaused) {
           this.isPlaying = false;
         }
       })
