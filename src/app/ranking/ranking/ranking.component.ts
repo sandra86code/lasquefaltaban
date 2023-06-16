@@ -17,7 +17,11 @@ export class RankingComponent implements OnInit {
     .subscribe({
       next: (resp) => {
         if (resp) {
-          this.ranking = resp;
+          if(resp.length<=3) {
+            this.ranking = resp;
+          }else {
+            this.ranking = resp.slice(0,3);
+          }
         }
       }
     })

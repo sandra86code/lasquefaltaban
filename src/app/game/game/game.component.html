@@ -50,7 +50,7 @@
             <div id="timer" class="d-flex flex-row-reverse bd-highlight">
               <div *ngIf="!isPaused">{{ (counter$ | async) }}'</div>
               <i *ngIf="isPaused" class="material-symbols-outlined">pause</i>
-              <audio *ngIf="isPlaying" autoplay>
+              <audio *ngIf="isPlaying && !isPaused" autoplay>
                 <source src="assets/audio/countdown.mp3" type="audio/mpeg">
               </audio>              
             </div>

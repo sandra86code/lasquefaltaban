@@ -156,8 +156,10 @@ export class GameComponent implements OnInit {
         if (value === 0) {
           this.resolveQuestion(false, -1);
           this.isPlaying = false;
-        }else if(value<=5) {
+        }else if(value<=5 && !this.isPaused) {
           this.isPlaying = true;
+        }else if(this.isPaused) {
+          this.isPlaying = false;
         }
       })
     );
