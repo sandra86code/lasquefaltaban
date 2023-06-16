@@ -81,11 +81,10 @@ export class RegisterComponent implements OnInit {
             this.route.navigateByUrl('/login')
           },
           error: (error) => {
-            console.log(error.status)
-            if(error.status=="BAD_REQUEST") {
+            if(error.error.status=="BAD_REQUEST") {
               Swal.fire({
                 icon: 'error',
-                title: error.message,
+                title: error.error.message,
                 confirmButtonColor: '#8d448b'
               })
             }else {
