@@ -152,7 +152,6 @@ export class UpdateUserComponent implements OnInit {
             confirmButtonColor: '#8d448b'
           })
         }
-        this.router.navigate(['/user']);
       }
     })
   }
