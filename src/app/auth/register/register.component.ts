@@ -81,7 +81,8 @@ export class RegisterComponent implements OnInit {
             this.route.navigateByUrl('/auth/login')
           },
           error: (error) => {
-            if(error.message=="Usuario ya existente") {
+            console.log(error)
+            if(error.status=="BAD_REQUEST") {
               Swal.fire({
                 icon: 'error',
                 title: error.message,
