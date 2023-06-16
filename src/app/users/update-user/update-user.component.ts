@@ -143,7 +143,7 @@ export class UpdateUserComponent implements OnInit {
         if(error.error.message=="Email repetido") {
           Swal.fire({
             icon: 'error',
-            title: error.error.message,
+            title: "Usuario repetido",
             confirmButtonColor: '#8d448b'
           })
         }else {
