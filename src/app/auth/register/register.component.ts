@@ -81,10 +81,10 @@ export class RegisterComponent implements OnInit {
             this.route.navigateByUrl('/auth/login')
           },
           error: (error) => {
-            if(error.error=="Usuario repetido") {
+            if(error.message=="Usuario ya existente") {
               Swal.fire({
                 icon: 'error',
-                title: error.error,
+                title: error.message,
                 confirmButtonColor: '#8d448b'
               })
             }else {
