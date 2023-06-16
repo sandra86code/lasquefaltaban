@@ -21,7 +21,7 @@ export class BreadcrumbComponent implements OnInit {
     
     if(url=='/auth/register') {
       this.href = 'Registro'
-    }else if(url=='/auth/login') {
+    }else if(url=='/login') {
       this.href = 'Login'
     }else if(url=='/ranking') {
       this.href = 'Ranking de jugador@s'

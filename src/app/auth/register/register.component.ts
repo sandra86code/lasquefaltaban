@@ -78,7 +78,7 @@ export class RegisterComponent implements OnInit {
               title: 'Confirma tu registro haciendo clic en el enlace que te hemos enviado a tu correo',
               confirmButtonColor: '#8d448b'
             })
-            this.route.navigateByUrl('/auth/login')
+            this.route.navigateByUrl('/login')
           },
           error: (error) => {
             console.log(error.status)

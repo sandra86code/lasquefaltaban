@@ -21,7 +21,7 @@ export class VerifyComponent implements OnInit {
           title: 'Cuenta activada',
           confirmButtonColor: '#8d448b'
         })
-        this.router.navigate(['/auth/login']);
+        this.router.navigate(['/login']);
       },
       error: (err) => {
         Swal.fire({

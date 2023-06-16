@@ -139,6 +139,7 @@ export class UpdateUserComponent implements OnInit {
         }
       },
       error: (error)=>{
+        console.log(error)
         if(error.error=="Usuario repetido") {
           Swal.fire({
             icon: 'error',

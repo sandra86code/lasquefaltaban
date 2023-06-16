@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
               title: 'Inicio de sesión incorrecto. Asegúrate de haber activado tu cuenta',
               confirmButtonColor: '#8d448b'
             })
-            this.router.navigate(['/auth/login']);
+            this.router.navigate(['/login']);
           }
         },
         error:(error) =>{

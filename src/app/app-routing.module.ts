@@ -6,7 +6,6 @@ import { HomeComponent } from './home/home/home.component';
 import { RolGuard } from './role-guard.guard';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { RankingComponent } from './ranking/ranking/ranking.component';
-import { GameComponent } from './game/game/game.component';
 import { VerifyComponent } from './verify/verify.component';
 import { LoggedInGuard } from './loggedin-guard.guard';
 import { AboutusComponent } from './aboutus/aboutus.component';
@@ -16,7 +15,7 @@ const routes: Routes = [
     path: '', component: HomeComponent, pathMatch: 'full'
   },
   {
-    path: 'auth/login', component: LoginComponent,
+    path: 'login', component: LoginComponent,
   },
   {
     path: 'auth/register', component: RegisterComponent,
