@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../auth/services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
 
   score: number = -1;
   constructor(private authService: AuthService,  private activatedRoute: ActivatedRoute, 
-    private rankingService: RankingService, private cookieService: CookieService) { }
+    private rankingService: RankingService, private cookieService: CookieService, private route: Router) { }
 
   ngOnInit(): void {
 
@@ -49,6 +49,7 @@ export class HeaderComponent implements OnInit {
         }
       }
     })
+    this.reload();
   }
 
   /**
@@ -56,6 +57,7 @@ export class HeaderComponent implements OnInit {
    */
   logout() {
     this.authService.logOut();
+    this.reload();
   }
 
   /**
@@ -70,5 +72,15 @@ export class HeaderComponent implements OnInit {
    */
   closeNavbar() {
     this.isNavbarOpen = false;
+  }
+
+  /**
+   * Método que recarga el componente
+   */
+   reload() {
+    const currentUrl = this.route.url;
+    this.route.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.route.navigateByUrl(currentUrl);
+    });
   }
 }

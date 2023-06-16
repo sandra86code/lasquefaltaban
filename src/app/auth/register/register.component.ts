@@ -81,7 +81,7 @@ export class RegisterComponent implements OnInit {
             this.route.navigateByUrl('/auth/login')
           },
           error: (error) => {
-            console.log(error)
+            console.log(error.status)
             if(error.status=="BAD_REQUEST") {
               Swal.fire({
                 icon: 'error',
