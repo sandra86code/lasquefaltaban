@@ -24,7 +24,7 @@
   
   <div class="text-end me-1 mb-3">
     <div class="button-group " *ngIf="!(isLoggedIn$|async) else logOut">
-      <button type="button" class="btn btn-secondary btn-lg me-2" routerLink="/auth/login">Acceder</button>
+      <button type="button" class="btn btn-secondary btn-lg me-2" routerLink="/login">Acceder</button>
       <button type="button" class="btn btn-primary btn-lg" routerLink="/auth/register">Registrarse</button>
     </div>
     <ng-template #logOut>
