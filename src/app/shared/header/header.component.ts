@@ -48,7 +48,9 @@ export class HeaderComponent implements OnInit {
           this.score = resp.score;
         }
       },
-      complete: () => this.reload()
+      complete: () => {
+        this.reload();
+      }
     })
     
   }
@@ -58,7 +60,7 @@ export class HeaderComponent implements OnInit {
    */
   logout() {
     this.authService.logOut();
-    this.reload();
+    this.route.navigateByUrl('/');
   }
 
   /**
