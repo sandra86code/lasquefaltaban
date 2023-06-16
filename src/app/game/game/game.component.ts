@@ -91,6 +91,7 @@ export class GameComponent implements OnInit {
    */
   nextQuestion() {
     this.notAnsweredQuestion = false;
+    this.isPlaying = false;
     if(this.index<this.questionsGame.length-1) {
       this.answered = false;
       this.index = this.index + 1;
