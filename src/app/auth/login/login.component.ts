@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
             this.loginForm.reset();
             Swal.fire({
               icon: 'error',
-              title: 'Inicio de sesión incorrecto',
+              title: 'Inicio de sesión incorrecto. Asegúrate de haber activado tu cuenta',
               confirmButtonColor: '#8d448b'
             })
             this.router.navigate(['/auth/login']);
