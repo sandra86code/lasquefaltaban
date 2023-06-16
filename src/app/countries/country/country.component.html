@@ -2,7 +2,7 @@
 
 <div class="px-4 py-5 my-5">
   <div class="row d-flex justify-content-center text-center">
-    <div class="col-md-8">
+    <div class="col-md-8" *ngIf="country; else loading">
       <h1 class="display-5 fw-bold mb-5">{{country.name}}</h1>
       <img src="{{country.img}}" class="img-fluid img-title mb-5 mt-4" *ngIf="country.img!=null">
       <img src="assets/world.png" class="img-fluid rounded-start" alt="{{country.name}}" *ngIf="country.img==null">
@@ -13,8 +13,16 @@
 
       <p class="fs-5 fst-italic">Artículo originalmente publicado en <a href="http://radiojaputa.com" target="_blank">radiojaputa.com</a>
       </p>
-    <div>
+      <div class="to-top" (click)="scrollToTop()" [ngClass]="{ 'show-scrollTop': windowScrolled }">
+        <i class="material-symbols-outlined">expand_circle_up</i>
+      </div>
+      
+    </div>
+    <ng-template #loading>
+      <img src="https://www.superiorlawncareusa.com/wp-content/uploads/2020/05/loading-gif-png-5.gif" class="loading img-fluid"/>
+    </ng-template>
   </div>
+  
 </div>
 
 

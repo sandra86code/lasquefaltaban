@@ -36,6 +36,13 @@ export class UpdatecountryComponent implements OnInit {
             name: this.country.name.replace("Situación de las mujeres en ", ""),
             description: this.country.description
           })
+        },
+        error:(error) =>{
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al recuperar el país',
+            confirmButtonColor: '#8d448b'
+          })
         }
       })
   }

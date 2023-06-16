@@ -33,6 +33,13 @@ export class UpdatecategoryComponent implements OnInit {
           this.myForm.setValue({
             name: this.category.name,
           })
+        },
+        error:(error) =>{
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al recuperar la categoría',
+            confirmButtonColor: '#8d448b'
+          })
         }
       })
   }

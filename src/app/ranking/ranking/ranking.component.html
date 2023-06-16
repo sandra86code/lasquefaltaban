@@ -3,10 +3,10 @@
     <div class="row">
         <div class="px-4 py-5 my-5">
             <div class="row d-flex justify-content-center text-center">
-              <div class="col-md-8">
+              <div class="col-md-8" *ngIf="ranking.length; else loading">
                 <h1 class="display-5 fw-bold mb-5">Ranking</h1>
                 <h4 class="mt-5" *ngIf="!ranking.length">Aún no hay datos para mostrar</h4>
-                <table class="table table-bordered table-striped table-hover text-left" *ngIf="ranking.length">
+                <table class="table table-bordered table-striped table-hover text-left" >
                     <tbody>
                     <tr *ngFor="let ra of ranking; let index = index" class="h5">
                         <td class="align-middle text-center">{{ index+1 }}</td>
@@ -16,6 +16,9 @@
                     </tbody>
                 </table>
                 </div>
+                <ng-template #loading>
+                    <img src="https://www.superiorlawncareusa.com/wp-content/uploads/2020/05/loading-gif-png-5.gif" class="loading img-fluid"/>
+                  </ng-template>
             </div>
         </div>
     </div>

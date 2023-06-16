@@ -49,6 +49,13 @@ export class UpdateUserComponent implements OnInit {
         this.initForm.username = this.user.username
         this.initForm.fullname = this.user.name
         this.initForm.email = this.user.email
+      },
+      error:(error) =>{
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al recuperar el usuario',
+          confirmButtonColor: '#8d448b'
+        })
       }  
     })
   }
@@ -89,6 +96,13 @@ export class UpdateUserComponent implements OnInit {
     .subscribe({
       next: res => {
         this.user = res;
+      },
+      error:(error) =>{
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al recuperar el usuario',
+          confirmButtonColor: '#8d448b'
+        })
       }  
     })
   }

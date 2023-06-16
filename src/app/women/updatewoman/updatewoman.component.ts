@@ -35,6 +35,13 @@ export class UpdatewomanComponent implements OnInit {
             name: this.woman.name,
             description: this.woman.description
           })
+        },
+        error:(error) =>{
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al recuperar la mujer',
+            confirmButtonColor: '#8d448b'
+          })
         }
       })
   }

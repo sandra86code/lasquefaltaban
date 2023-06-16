@@ -58,6 +58,13 @@ export class LoginComponent implements OnInit {
             })
             this.router.navigate(['/auth/login']);
           }
+        },
+        error:(error) =>{
+          Swal.fire({
+            icon: 'error',
+            title: 'La base de datos no responde',
+            confirmButtonColor: '#8d448b'
+          })
         }
       })
   }

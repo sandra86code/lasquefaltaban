@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 import { RankingService } from '../service/ranking.service';
 
 @Component({
   selector: 'app-ranking',
   templateUrl: './ranking.component.html',
-  styles: ['h1 {color: #8d448b; }']
+  styles: ['h1 {color: #8d448b; } img {width: 300px}']
 })
 export class RankingComponent implements OnInit {
 
@@ -17,12 +18,19 @@ export class RankingComponent implements OnInit {
     .subscribe({
       next: (resp) => {
         if (resp) {
-          if(resp.length<=3) {
+          if(resp.length<=10) {
             this.ranking = resp;
           }else {
-            this.ranking = resp.slice(0,3);
+            this.ranking = resp.slice(0,10);
           }
         }
+      },
+      error: (error)=>{
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al recuperar el ranking',
+          confirmButtonColor: '#8d448b'
+        })
       }
     })
   }

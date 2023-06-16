@@ -52,6 +52,13 @@ export class UpdatequestionComponent implements OnInit {
           this.selectedCategory = this.question.category.id;
           let correctAnswer = this.question.answers.filter((x: { correct: boolean; }) => x.correct == true)
           this.initForm.correct = this.selectCorrectAnswer(correctAnswer[0].answer);
+        },
+        error:(error) =>{
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al recuperar la pregunta',
+            confirmButtonColor: '#8d448b'
+          })
         }
       })
     this.categoryService.getCategories()
