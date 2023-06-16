@@ -16,7 +16,6 @@ export class UpdateUserComponent implements OnInit {
   id: any;
   user!: UsersResponse;
   repassword: string = "";
-  samePassword: boolean = false;
   changedPassword: boolean = false;
 
   @ViewChild('updatedForm') updatedForm!: NgForm;
@@ -82,7 +81,6 @@ export class UpdateUserComponent implements OnInit {
    */
   checkPassword(): boolean {
     if (this.updatedForm?.controls["password"]?.touched && this.updatedForm?.controls["repassword"]?.touched) {
-      // this.samePassword = true;
       return this.updatedForm?.controls["repassword"].value != this.updatedForm?.controls["password"].value
     } else {
       return false;
