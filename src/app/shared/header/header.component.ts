@@ -42,6 +42,7 @@ export class HeaderComponent implements OnInit {
     this.username = this.authService.userUsername;
     this.usernameCookie = this.cookieService.get('user-username')
     this.imgCookie = this.cookieService.get('user-img')
+    console.log(this.imgCookie)
     this.location.reload();
     this.rankingService.getScoreOfUser(this.usernameCookie)
     .subscribe({
