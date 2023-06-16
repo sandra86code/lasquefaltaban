@@ -59,8 +59,8 @@ export class HeaderComponent implements OnInit {
    * Método que desloguea al usuario en la aplicación
    */
   logout() {
-    this.authService.logOut();
     this.route.navigateByUrl('/');
+    this.authService.logOut();
   }
 
   /**
