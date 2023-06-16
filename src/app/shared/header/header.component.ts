@@ -26,7 +26,8 @@ export class HeaderComponent implements OnInit {
 
   score: number = -1;
   constructor(private authService: AuthService,  private activatedRoute: ActivatedRoute, 
-    private rankingService: RankingService, private cookieService: CookieService, private route: Router) { }
+    private rankingService: RankingService, private cookieService: CookieService, private route: Router,
+    private location: Location) { }
 
   ngOnInit(): void {
 
